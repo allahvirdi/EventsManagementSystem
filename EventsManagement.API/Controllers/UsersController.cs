@@ -92,9 +92,7 @@ namespace EventsManagement.API.Controllers
                     FullName = model.FullName,
                     PhoneNumber = model.PhoneNumber,
                     IsActive = true,
-                    CreatedAt = DateTime.Now,
-                    CreatedBy = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "System",
-                    UpdatedBy = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "System"
+                    CreatedAt = DateTime.Now
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -132,7 +130,6 @@ namespace EventsManagement.API.Controllers
                 user.FullName = model.FullName;
                 user.PhoneNumber = model.PhoneNumber;
                 user.IsActive = model.IsActive;
-                user.UpdatedBy = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "System";
 
                 var result = await _userManager.UpdateAsync(user);
                 if (!result.Succeeded)
