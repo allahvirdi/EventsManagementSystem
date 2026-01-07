@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "lsVoRY1Jb/g=",
-  "success": false,
+  "dgSpecHash": "NFMySTlJNI0=",
+  "success": true,
   "projectFilePath": "C:\\Users\\amira\\Documents\\GitHub\\EventsManagementSystem\\EventsManagement.API\\EventsManagement.API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\amira\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\amira\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\amira\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\amira\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
@@ -19,6 +20,7 @@
     "C:\\Users\\amira\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\9.0.0\\microsoft.aspnetcore.identity.entityframeworkcore.9.0.0.nupkg.sha512",
     "C:\\Users\\amira\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.11\\microsoft.aspnetcore.openapi.9.0.11.nupkg.sha512",
     "C:\\Users\\amira\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
+    "C:\\Users\\amira\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\amira\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.6\\microsoft.data.sqlclient.5.1.6.nupkg.sha512",
     "C:\\Users\\amira\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.1.1\\microsoft.data.sqlclient.sni.runtime.5.1.1.nupkg.sha512",
     "C:\\Users\\amira\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.0\\microsoft.entityframeworkcore.9.0.0.nupkg.sha512",
@@ -105,17 +107,6 @@
       "warningLevel": 1,
       "filePath": "C:\\Users\\amira\\Documents\\GitHub\\EventsManagementSystem\\EventsManagement.API\\EventsManagement.API.csproj",
       "libraryId": "MediatR",
-      "targetGraphs": [
-        "net9.0"
-      ]
-    },
-    {
-      "code": "NU1107",
-      "level": "Error",
-      "message": "Version conflict detected for AutoMapper. Install/reference AutoMapper 13.0.1 directly to project EventsManagement.API to resolve this issue. \r\n EventsManagement.API -> EventsManagement.Application -> AutoMapper (>= 13.0.1) \r\n EventsManagement.API -> AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 -> AutoMapper (= 12.0.1).",
-      "projectPath": "C:\\Users\\amira\\Documents\\GitHub\\EventsManagementSystem\\EventsManagement.API\\EventsManagement.API.csproj",
-      "filePath": "C:\\Users\\amira\\Documents\\GitHub\\EventsManagementSystem\\EventsManagement.API\\EventsManagement.API.csproj",
-      "libraryId": "AutoMapper",
       "targetGraphs": [
         "net9.0"
       ]
