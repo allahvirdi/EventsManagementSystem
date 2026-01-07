@@ -68,8 +68,9 @@ builder.Services.AddScoped<ITaskReplyRepository, TaskReplyRepository>();
 builder.Services.AddScoped<IDynamicTableRepository, DynamicTableRepository>();
 builder.Services.AddScoped<IOrganizationUnitRepository, OrganizationUnitRepository>();
 
-// ============= JWT Token Service =============
+// ============= Services =============
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 
 // ============= MediatR کانفیگ =============
 builder.Services.AddMediatR(cfg => 
