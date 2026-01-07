@@ -112,45 +112,19 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// ============= Database Migration =============
+// ============= Database Migration & Seeding =============
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     dbContext.Database.Migrate();
     
-    // Seeding Admin User
+    // Data Seeding
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<DataSeeder>>();
     
-    // ایجاد نقش‌ها
-    string[] roleNames = { "Admin", "Manager", "Operator", "Viewer" };
-    foreach (var roleName in roleNames)
-    {
-        if (!await roleManager.RoleExistsAsync(roleName))
-        {
-            await roleManager.CreateAsync(new IdentityRole(roleName));
-        }
-    }
-    
-    // ایجاد کاربر Admin
-    var adminUser = await userManager.FindByNameAsync("admin");
-    if (adminUser == null)
-    {
-        var newAdmin = new AppUser
-        {
-            UserName = "admin",
-            Email = "admin@example.com",
-            FullName = "مدیر سامانه",
-            EmailConfirmed = true,
-            IsActive = true
-        };
-        
-        var result = await userManager.CreateAsync(newAdmin, "!QAZ1qaz");
-        if (result.Succeeded)
-        {
-            await userManager.AddToRoleAsync(newAdmin, "Admin");
-        }
-    }
+    var seeder = new DataSeeder(dbContext, userManager, roleManager, logger);
+    await seeder.SeedAsync();
 }
 
 Log.Information("EventsManagement API است برای شروع");

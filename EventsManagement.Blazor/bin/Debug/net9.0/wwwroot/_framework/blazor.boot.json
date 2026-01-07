@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "EventsManagement.Blazor",
   "resources": {
-    "hash": "sha256-CSBE4Z6xSR35N81cHpFUOjVAn8jM9+SwTDKR8r+rtaM=",
+    "hash": "sha256-++K0R6fVhcmMZPLwWKEp5YNCycFy+RcIlerBN8NxKCg=",
     "fingerprinting": {
       "HttpClientFactory.y6dh5fvd4a.wasm": "HttpClientFactory.wasm",
       "IdentityModel.war9rx48rx.wasm": "IdentityModel.wasm",
@@ -203,8 +203,8 @@
       "icudt_CJK.tjcz0u77k5.dat": "icudt_CJK.dat",
       "icudt_EFIGS.tptq2av103.dat": "icudt_EFIGS.dat",
       "icudt_no_CJK.lfu7j35m59.dat": "icudt_no_CJK.dat",
-      "EventsManagement.Blazor.6pv6ogumkz.wasm": "EventsManagement.Blazor.wasm",
-      "EventsManagement.Blazor.e0c7gkty63.pdb": "EventsManagement.Blazor.pdb"
+      "EventsManagement.Blazor.5os6xgecyo.wasm": "EventsManagement.Blazor.wasm",
+      "EventsManagement.Blazor.p20t6ymf0a.pdb": "EventsManagement.Blazor.pdb"
     },
     "jsModuleNative": {
       "dotnet.native.noby4tlk4d.js": "sha256-p9eEzXhQIsI0a5bBJhfzW15iRafgplTxT8XrO5FiH9o="
@@ -416,10 +416,10 @@
       "WindowsBase.i7qip04bb5.wasm": "sha256-Lg5W8BM50Cpl1dgTrG9RQOrBRKOJq6H1t5sH3yf4KDU=",
       "mscorlib.ijjuvl21w4.wasm": "sha256-ku4DyQX7IfTdwPwDlrz9odvCs4mrgsJl0fNaqY56KOI=",
       "netstandard.jgp13znru0.wasm": "sha256-I7arRnyxWh5PItslQKjzLIG7EpohJACm7p/7K8eD0YA=",
-      "EventsManagement.Blazor.6pv6ogumkz.wasm": "sha256-+p1jesEyaoAI6oqyYCcBBlCyiW780q0okY10mNVog1k="
+      "EventsManagement.Blazor.5os6xgecyo.wasm": "sha256-pbccbRNOyHQfaSsej25CyXhx8CBjszb+abBVc1hIOBQ="
     },
     "pdb": {
-      "EventsManagement.Blazor.e0c7gkty63.pdb": "sha256-cpdAYjVH2Ty/vAV0y/24cug2q5g6a+skvAosHs8O1hc="
+      "EventsManagement.Blazor.p20t6ymf0a.pdb": "sha256-X6zuTLA4rPSOx7Zad/1haK8CJhzjFZ+dfmrKlTEWp6Q="
     }
   },
   "cacheBootResources": true,

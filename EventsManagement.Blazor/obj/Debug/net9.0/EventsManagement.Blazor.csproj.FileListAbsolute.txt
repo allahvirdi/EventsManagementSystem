@@ -1034,10 +1034,10 @@ C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\o
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\refint\EventsManagement.Blazor.dll
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\EventsManagement.Blazor.pdb
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\ref\EventsManagement.Blazor.dll
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.6pv6ogumkz.wasm
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.e0c7gkty63.pdb
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.6pv6ogumkz.wasm.gz
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.e0c7gkty63.pdb.gz
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\1nzelbxatg-6pv6ogumkz.gz
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\yykpfs5upl-e0c7gkty63.gz
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\9xilpdal9c-nitt3f6b2u.gz
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.5os6xgecyo.wasm
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.p20t6ymf0a.pdb
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.5os6xgecyo.wasm.gz
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.p20t6ymf0a.pdb.gz
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\1nzelbxatg-5os6xgecyo.gz
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\yykpfs5upl-p20t6ymf0a.gz
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\9xilpdal9c-0ou7imh6l8.gz
