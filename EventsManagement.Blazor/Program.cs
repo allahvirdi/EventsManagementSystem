@@ -16,7 +16,8 @@ builder.Services.AddScoped(sp => new HttpClient
     BaseAddress = new Uri(apiBaseUrl)
 });
 
-// ثبت سرویس Authentication
+// ثبت سرویس‌ها
+builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 await builder.Build().RunAsync();

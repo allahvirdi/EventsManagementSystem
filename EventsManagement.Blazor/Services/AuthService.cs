@@ -15,13 +15,15 @@ namespace EventsManagement.Blazor.Services
     public class AuthService : IAuthService
     {
         private readonly HttpClient _httpClient;
+        private readonly ILocalStorageService _localStorage;
         private const string TokenKey = "authToken";
         private const string RefreshTokenKey = "refreshToken";
         private const string UserInfoKey = "userInfo";
 
-        public AuthService(HttpClient httpClient)
+        public AuthService(HttpClient httpClient, ILocalStorageService localStorage)
         {
             _httpClient = httpClient;
+            _localStorage = localStorage;
         }
 
         public async Task<LoginResult> LoginAsync(string email, string password)
@@ -75,9 +77,7 @@ namespace EventsManagement.Blazor.Services
 
         public async Task<string?> GetTokenAsync()
         {
-            // در Blazor WebAssembly از localStorage استفاده می‌کنیم
-            // این متد باید با JSInterop پیاده‌سازی شود
-            return await Task.FromResult<string?>(null);
+            return await _localStorage.GetItemAsync<string>(TokenKey);
         }
 
         public async Task<bool> IsAuthenticatedAsync()
@@ -88,32 +88,29 @@ namespace EventsManagement.Blazor.Services
 
         public async Task<UserInfo?> GetUserInfoAsync()
         {
-            // این متد باید با JSInterop پیاده‌سازی شود
-            return await Task.FromResult<UserInfo?>(null);
+            return await _localStorage.GetItemAsync<UserInfo>(UserInfoKey);
         }
 
         private async Task SaveTokenAsync(string accessToken, string refreshToken)
         {
-            // TODO: پیاده‌سازی با JSInterop
-            await Task.CompletedTask;
+            await _localStorage.SetItemAsync(TokenKey, accessToken);
+            await _localStorage.SetItemAsync(RefreshTokenKey, refreshToken);
         }
 
         private async Task SaveUserInfoAsync(UserInfo userInfo)
         {
-            // TODO: پیاده‌سازی با JSInterop
-            await Task.CompletedTask;
+            await _localStorage.SetItemAsync(UserInfoKey, userInfo);
         }
 
         private async Task RemoveTokenAsync()
         {
-            // TODO: پیاده‌سازی با JSInterop
-            await Task.CompletedTask;
+            await _localStorage.RemoveItemAsync(TokenKey);
+            await _localStorage.RemoveItemAsync(RefreshTokenKey);
         }
 
         private async Task RemoveUserInfoAsync()
         {
-            // TODO: پیاده‌سازی با JSInterop
-            await Task.CompletedTask;
+            await _localStorage.RemoveItemAsync(UserInfoKey);
         }
     }
 
