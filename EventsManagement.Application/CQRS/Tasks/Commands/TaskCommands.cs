@@ -50,6 +50,21 @@ namespace EventsManagement.Application.CQRS.Tasks.Commands
         public int ProgressPercentage { get; set; }
         public DateTime? DueDate { get; set; }
         public string UpdatedBy { get; set; }
+
+        public UpdateTaskCommand(int taskId, CreateTaskDto dto, string updatedBy)
+        {
+            TaskId = taskId;
+            Title = dto.Title;
+            Description = dto.Description;
+            AssignedToUnitId = dto.AssignedToUnitId;
+            AssignedToUserId = dto.AssignedToUserId;
+            SupervisorUserId = dto.SupervisorUserId;
+            CooperatingUnitsIds = dto.CooperatingUnitsIds;
+            ActionTypeId = dto.ActionTypeId;
+            ProgressPercentage = 0; // مقدار اولیه
+            DueDate = dto.DueDate;
+            UpdatedBy = updatedBy;
+        }
     }
 
     /// <summary>

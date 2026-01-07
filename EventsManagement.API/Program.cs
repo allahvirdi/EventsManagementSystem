@@ -8,6 +8,8 @@ using MediatR;
 using EventsManagement.Infrastructure.Data;
 using EventsManagement.Shared.Entities;
 using EventsManagement.Infrastructure.Repositories;
+using EventsManagement.API.Services;
+using EventsManagement.Application.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,13 +68,15 @@ builder.Services.AddScoped<ITaskReplyRepository, TaskReplyRepository>();
 builder.Services.AddScoped<IDynamicTableRepository, DynamicTableRepository>();
 builder.Services.AddScoped<IOrganizationUnitRepository, OrganizationUnitRepository>();
 
+// ============= JWT Token Service =============
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+
 // ============= MediatR کانفیگ =============
 builder.Services.AddMediatR(cfg => 
-    cfg.RegisterServicesFromAssembly(typeof(EventsManagement.Application.Validators.AuthValidators).Assembly));
+    cfg.RegisterServicesFromAssembly(typeof(LoginValidator).Assembly));
 
 // ============= FluentValidation کانفیگ =============
-builder.Services.AddValidatorsFromAssemblyContaining(typeof(EventsManagement.Application.Validators.LoginValidator));
-builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssemblyContaining<LoginValidator>();
 
 // ============= AutoMapper کانفیگ =============
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

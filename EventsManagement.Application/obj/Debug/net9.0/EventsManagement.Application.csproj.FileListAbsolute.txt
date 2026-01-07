@@ -1,0 +1,16 @@
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\obj\Debug\net9.0\EventsManagement.Application.csproj.AssemblyReference.cache
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\obj\Debug\net9.0\EventsManagement.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\obj\Debug\net9.0\EventsManagement.Application.AssemblyInfoInputs.cache
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\obj\Debug\net9.0\EventsManagement.Application.AssemblyInfo.cs
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\obj\Debug\net9.0\EventsManagement.Application.csproj.CoreCompileInputs.cache
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\obj\Debug\net9.0\EventsManagement.Application.sourcelink.json
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\bin\Debug\net9.0\EventsManagement.Application.deps.json
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\bin\Debug\net9.0\EventsManagement.Application.dll
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\bin\Debug\net9.0\EventsManagement.Application.pdb
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\bin\Debug\net9.0\EventsManagement.Shared.dll
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\bin\Debug\net9.0\EventsManagement.Shared.pdb
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\obj\Debug\net9.0\EventsMa.6F5ADF51.Up2Date
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\obj\Debug\net9.0\EventsManagement.Application.dll
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\obj\Debug\net9.0\refint\EventsManagement.Application.dll
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\obj\Debug\net9.0\EventsManagement.Application.pdb
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Application\obj\Debug\net9.0\ref\EventsManagement.Application.dll

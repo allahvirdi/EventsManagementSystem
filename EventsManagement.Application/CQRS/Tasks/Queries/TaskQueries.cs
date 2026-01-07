@@ -63,6 +63,19 @@ namespace EventsManagement.Application.CQRS.Tasks.Queries
     }
 
     /// <summary>
+    /// Query برای جستجو در وظایف
+    /// </summary>
+    public class SearchTasksQuery : IRequest<List<TaskDto>>
+    {
+        public string SearchTerm { get; set; }
+
+        public SearchTasksQuery(string searchTerm)
+        {
+            SearchTerm = searchTerm;
+        }
+    }
+
+    /// <summary>
     /// Query برای دریافت وظیفه با جزئیات
     /// </summary>
     public class GetTaskDetailsQuery : IRequest<TaskDto>

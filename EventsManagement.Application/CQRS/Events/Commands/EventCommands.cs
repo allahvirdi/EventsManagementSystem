@@ -62,6 +62,25 @@ namespace EventsManagement.Application.CQRS.Events.Commands
         public DateTime? EventEndDate { get; set; }
         public int ActionUnitId { get; set; }
         public string UpdatedBy { get; set; }
+
+        public UpdateEventCommand(int eventId, CreateEventDto dto, string updatedBy)
+        {
+            EventId = eventId;
+            Title = dto.Title;
+            Description = dto.Description;
+            EventSourceId = dto.EventSourceId;
+            EventSubjectId = dto.EventSubjectId;
+            UrgencyId = dto.UrgencyId;
+            ScopeId = dto.ScopeId;
+            ScopeDetails = dto.ScopeDetails;
+            ImpactScopeId = dto.ImpactScopeId;
+            ImpactScopeDetails = dto.ImpactScopeDetails;
+            ImpactRangeId = dto.ImpactRangeId;
+            EventStartDate = dto.EventStartDate;
+            EventEndDate = dto.EventEndDate;
+            ActionUnitId = dto.ActionUnitId;
+            UpdatedBy = updatedBy;
+        }
     }
 
     /// <summary>
