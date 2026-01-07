@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventsManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260107160733_InitialCreate")]
+    [Migration("20260107173240_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -340,11 +340,9 @@ namespace EventsManagement.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("RegisteredBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReviewedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ScopeDetails")
@@ -789,7 +787,6 @@ namespace EventsManagement.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ErrorMessage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IpAddress")
@@ -982,17 +979,17 @@ namespace EventsManagement.Infrastructure.Migrations
                     b.HasOne("EventsManagement.Shared.Entities.Event", null)
                         .WithMany("Documents")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("EventsManagement.Shared.Entities.EventTask", null)
                         .WithMany("Documents")
                         .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("EventsManagement.Shared.Entities.TaskReply", null)
                         .WithMany("Documents")
                         .HasForeignKey("TaskReplyId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("EventsManagement.Shared.Entities.Event", b =>
@@ -1070,7 +1067,7 @@ namespace EventsManagement.Infrastructure.Migrations
                     b.HasOne("EventsManagement.Shared.Entities.Province", "Province")
                         .WithMany()
                         .HasForeignKey("ProvinceId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("EventsManagement.Shared.Entities.Region", "Region")
                         .WithMany("Schools")

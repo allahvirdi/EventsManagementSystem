@@ -39,7 +39,8 @@ namespace EventsManagement.Application.CQRS.Events.Handlers
                 ActionUnitId = request.ActionUnitId,
                 RegisteredBy = request.CreatedBy,
                 StatusId = 1, // وضعیت پیش‌فرض: ثبت‌شده
-                CreatedBy = request.CreatedBy
+                CreatedBy = request.CreatedBy,
+                UpdatedBy = request.CreatedBy
             };
 
             // ذخیره‌سازی

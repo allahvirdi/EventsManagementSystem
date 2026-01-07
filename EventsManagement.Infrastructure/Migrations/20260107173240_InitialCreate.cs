@@ -113,7 +113,7 @@ namespace EventsManagement.Infrastructure.Migrations
                     IpAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserAgent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsSuccessful = table.Column<bool>(type: "bit", nullable: false),
-                    ErrorMessage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ErrorMessage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ActivityDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -204,8 +204,8 @@ namespace EventsManagement.Infrastructure.Migrations
                     EventEndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ActionUnitId = table.Column<int>(type: "int", nullable: false),
                     StatusId = table.Column<int>(type: "int", nullable: false),
-                    RegisteredBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ReviewedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RegisteredBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReviewedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -462,7 +462,7 @@ namespace EventsManagement.Infrastructure.Migrations
                         column: x => x.ProvinceId,
                         principalTable: "Provinces",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Schools_Regions_RegionId",
                         column: x => x.RegionId,
@@ -530,19 +530,19 @@ namespace EventsManagement.Infrastructure.Migrations
                         column: x => x.TaskId,
                         principalTable: "EventTasks",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DocumentMetadatas_Events_EventId",
                         column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_DocumentMetadatas_TaskReplies_TaskReplyId",
                         column: x => x.TaskReplyId,
                         principalTable: "TaskReplies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

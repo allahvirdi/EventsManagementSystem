@@ -83,12 +83,12 @@ namespace EventsManagement.Shared.Entities
         /// <summary>
         /// شناسه کاربر ثبت‌کننده
         /// </summary>
-        public string RegisteredBy { get; set; }
+        public string? RegisteredBy { get; set; }
 
         /// <summary>
         /// شناسه کاربر بررسی‌کننده/مرجع بالاتر
         /// </summary>
-        public string ReviewedBy { get; set; }
+        public string? ReviewedBy { get; set; }
 
         /// <summary>
         /// وظایف مرتبط با این رویداد

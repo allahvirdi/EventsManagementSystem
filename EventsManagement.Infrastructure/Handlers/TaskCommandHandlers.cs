@@ -39,6 +39,7 @@ namespace EventsManagement.Infrastructure.Handlers
                 DueDate = request.DueDate,
                 StatusId = 1, // وضعیت اولیه: جدید
                 CreatedBy = request.CreatedBy,
+                UpdatedBy = request.CreatedBy,
                 CreatedAt = DateTime.Now
             };
 

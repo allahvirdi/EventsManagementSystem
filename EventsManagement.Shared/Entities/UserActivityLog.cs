@@ -38,7 +38,7 @@ namespace EventsManagement.Shared.Entities
         /// <summary>
         /// پیام خطا (در صورت ناکامی)
         /// </summary>
-        public string ErrorMessage { get; set; }
+        public string? ErrorMessage { get; set; }
 
         /// <summary>
         /// تاریخ و ساعت فعالیت

@@ -103,41 +103,41 @@ public class DataSeeder
             var dynamicTables = new List<DynamicTable>
             {
                 // وضعیت رویداد
-                new() { TableName = "EventStatus", Value = "ثبت شده", Description = "رویداد ثبت شده است", IsActive = true, DisplayOrder = 1, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "EventStatus", Value = "در حال بررسی", Description = "رویداد در حال بررسی است", IsActive = true, DisplayOrder = 2, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "EventStatus", Value = "تایید شده", Description = "رویداد تایید شده است", IsActive = true, DisplayOrder = 3, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "EventStatus", Value = "رد شده", Description = "رویداد رد شده است", IsActive = true, DisplayOrder = 4, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "EventStatus", Value = "بسته شده", Description = "رویداد بسته شده است", IsActive = true, DisplayOrder = 5, CreatedBy = "System", CreatedAt = DateTime.Now },
+                new() { TableName = "EventStatus", Code = 1, Value = "ثبت شده", Description = "رویداد ثبت شده است", IsActive = true, DisplayOrder = 1, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventStatus", Code = 2, Value = "در حال بررسی", Description = "رویداد در حال بررسی است", IsActive = true, DisplayOrder = 2, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventStatus", Code = 3, Value = "تایید شده", Description = "رویداد تایید شده است", IsActive = true, DisplayOrder = 3, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventStatus", Code = 4, Value = "رد شده", Description = "رویداد رد شده است", IsActive = true, DisplayOrder = 4, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventStatus", Code = 5, Value = "بسته شده", Description = "رویداد بسته شده است", IsActive = true, DisplayOrder = 5, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
 
                 // اهمیت رویداد
-                new() { TableName = "EventSeverity", Value = "کم", Description = "اهمیت کم", IsActive = true, DisplayOrder = 1, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "EventSeverity", Value = "متوسط", Description = "اهمیت متوسط", IsActive = true, DisplayOrder = 2, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "EventSeverity", Value = "زیاد", Description = "اهمیت زیاد", IsActive = true, DisplayOrder = 3, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "EventSeverity", Value = "بحرانی", Description = "اهمیت بحرانی", IsActive = true, DisplayOrder = 4, CreatedBy = "System", CreatedAt = DateTime.Now },
+                new() { TableName = "EventSeverity", Code = 1, Value = "کم", Description = "اهمیت کم", IsActive = true, DisplayOrder = 1, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventSeverity", Code = 2, Value = "متوسط", Description = "اهمیت متوسط", IsActive = true, DisplayOrder = 2, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventSeverity", Code = 3, Value = "زیاد", Description = "اهمیت زیاد", IsActive = true, DisplayOrder = 3, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventSeverity", Code = 4, Value = "بحرانی", Description = "اهمیت بحرانی", IsActive = true, DisplayOrder = 4, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
 
                 // دامنه تاثیر
-                new() { TableName = "ImpactScope", Value = "مدرسه", Description = "تاثیر در سطح مدرسه", IsActive = true, DisplayOrder = 1, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "ImpactScope", Value = "ناحیه", Description = "تاثیر در سطح ناحیه", IsActive = true, DisplayOrder = 2, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "ImpactScope", Value = "استان", Description = "تاثیر در سطح استان", IsActive = true, DisplayOrder = 3, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "ImpactScope", Value = "کشور", Description = "تاثیر در سطح کشور", IsActive = true, DisplayOrder = 4, CreatedBy = "System", CreatedAt = DateTime.Now },
+                new() { TableName = "ImpactScope", Code = 1, Value = "مدرسه", Description = "تاثیر در سطح مدرسه", IsActive = true, DisplayOrder = 1, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "ImpactScope", Code = 2, Value = "ناحیه", Description = "تاثیر در سطح ناحیه", IsActive = true, DisplayOrder = 2, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "ImpactScope", Code = 3, Value = "استان", Description = "تاثیر در سطح استان", IsActive = true, DisplayOrder = 3, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "ImpactScope", Code = 4, Value = "کشور", Description = "تاثیر در سطح کشور", IsActive = true, DisplayOrder = 4, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
 
                 // وضعیت وظیفه
-                new() { TableName = "TaskStatus", Value = "معلق", Description = "وظیفه معلق است", IsActive = true, DisplayOrder = 1, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "TaskStatus", Value = "در حال انجام", Description = "وظیفه در حال انجام است", IsActive = true, DisplayOrder = 2, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "TaskStatus", Value = "تکمیل شده", Description = "وظیفه تکمیل شده است", IsActive = true, DisplayOrder = 3, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "TaskStatus", Value = "مسدود شده", Description = "وظیفه مسدود شده است", IsActive = true, DisplayOrder = 4, CreatedBy = "System", CreatedAt = DateTime.Now },
+                new() { TableName = "TaskStatus", Code = 1, Value = "معلق", Description = "وظیفه معلق است", IsActive = true, DisplayOrder = 1, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "TaskStatus", Code = 2, Value = "در حال انجام", Description = "وظیفه در حال انجام است", IsActive = true, DisplayOrder = 2, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "TaskStatus", Code = 3, Value = "تکمیل شده", Description = "وظیفه تکمیل شده است", IsActive = true, DisplayOrder = 3, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "TaskStatus", Code = 4, Value = "مسدود شده", Description = "وظیفه مسدود شده است", IsActive = true, DisplayOrder = 4, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
 
                 // اولویت وظیفه
-                new() { TableName = "TaskPriority", Value = "کم", Description = "اولویت کم", IsActive = true, DisplayOrder = 1, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "TaskPriority", Value = "متوسط", Description = "اولویت متوسط", IsActive = true, DisplayOrder = 2, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "TaskPriority", Value = "زیاد", Description = "اولویت زیاد", IsActive = true, DisplayOrder = 3, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "TaskPriority", Value = "فوری", Description = "اولویت فوری", IsActive = true, DisplayOrder = 4, CreatedBy = "System", CreatedAt = DateTime.Now },
+                new() { TableName = "TaskPriority", Code = 1, Value = "کم", Description = "اولویت کم", IsActive = true, DisplayOrder = 1, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "TaskPriority", Code = 2, Value = "متوسط", Description = "اولویت متوسط", IsActive = true, DisplayOrder = 2, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "TaskPriority", Code = 3, Value = "زیاد", Description = "اولویت زیاد", IsActive = true, DisplayOrder = 3, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "TaskPriority", Code = 4, Value = "فوری", Description = "اولویت فوری", IsActive = true, DisplayOrder = 4, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
 
                 // نوع واحد سازمانی
-                new() { TableName = "OrganizationUnitType", Value = "وزارتخانه", Description = "سطح وزارتخانه", IsActive = true, DisplayOrder = 1, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "OrganizationUnitType", Value = "استان", Description = "سطح استان", IsActive = true, DisplayOrder = 2, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "OrganizationUnitType", Value = "ناحیه", Description = "سطح ناحیه", IsActive = true, DisplayOrder = 3, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { TableName = "OrganizationUnitType", Value = "مدرسه", Description = "سطح مدرسه", IsActive = true, DisplayOrder = 4, CreatedBy = "System", CreatedAt = DateTime.Now },
+                new() { TableName = "OrganizationUnitType", Code = 1, Value = "وزارتخانه", Description = "سطح وزارتخانه", IsActive = true, DisplayOrder = 1, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "OrganizationUnitType", Code = 2, Value = "استان", Description = "سطح استان", IsActive = true, DisplayOrder = 2, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "OrganizationUnitType", Code = 3, Value = "ناحیه", Description = "سطح ناحیه", IsActive = true, DisplayOrder = 3, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "OrganizationUnitType", Code = 4, Value = "مدرسه", Description = "سطح مدرسه", IsActive = true, DisplayOrder = 4, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
             };
 
             await _context.DynamicTables.AddRangeAsync(dynamicTables);
@@ -152,10 +152,10 @@ public class DataSeeder
         {
             var provinces = new List<Province>
             {
-                new() { Name = "تهران", Code = 1, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { Name = "اصفهان", Code = 2, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { Name = "فارس", Code = 3, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { Name = "خراسان رضوی", Code = 4, CreatedBy = "System", CreatedAt = DateTime.Now },
+                new() { Name = "تهران", Code = 1, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { Name = "اصفهان", Code = 2, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { Name = "فارس", Code = 3, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { Name = "خراسان رضوی", Code = 4, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
             };
 
             await _context.Provinces.AddRangeAsync(provinces);
@@ -166,9 +166,9 @@ public class DataSeeder
             var tehranProvince = await _context.Provinces.FirstAsync(p => p.Name == "تهران");
             var regions = new List<Region>
             {
-                new() { Name = "ناحیه 1 تهران", Code = 101, ProvinceId = tehranProvince.Id, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { Name = "ناحیه 2 تهران", Code = 102, ProvinceId = tehranProvince.Id, CreatedBy = "System", CreatedAt = DateTime.Now },
-                new() { Name = "ناحیه 3 تهران", Code = 103, ProvinceId = tehranProvince.Id, CreatedBy = "System", CreatedAt = DateTime.Now },
+                new() { Name = "ناحیه 1 تهران", Code = 101, ProvinceId = tehranProvince.Id, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { Name = "ناحیه 2 تهران", Code = 102, ProvinceId = tehranProvince.Id, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { Name = "ناحیه 3 تهران", Code = 103, ProvinceId = tehranProvince.Id, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
             };
 
             await _context.Regions.AddRangeAsync(regions);
@@ -188,6 +188,7 @@ public class DataSeeder
                     Address = "تهران، خیابان ولیعصر، کوچه باهنر",
                     PhoneNumber = "02188776655",
                     CreatedBy = "System", 
+                    UpdatedBy = "",
                     CreatedAt = DateTime.Now 
                 },
                 new() 
@@ -199,6 +200,7 @@ public class DataSeeder
                     Address = "تهران، خیابان انقلاب، کوچه بهشتی",
                     PhoneNumber = "02188776656",
                     CreatedBy = "System", 
+                    UpdatedBy = "",
                     CreatedAt = DateTime.Now 
                 },
             };

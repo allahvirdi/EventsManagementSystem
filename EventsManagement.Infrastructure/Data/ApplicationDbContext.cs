@@ -67,7 +67,7 @@ namespace EventsManagement.Infrastructure.Data
                 .HasOne(s => s.Province)
                 .WithMany()
                 .HasForeignKey(s => s.ProvinceId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Restrict);
 
             // ============= Event تنظیمات =============
             modelBuilder.Entity<Event>()
@@ -86,12 +86,11 @@ namespace EventsManagement.Infrastructure.Data
                 .HasMany(e => e.Documents)
                 .WithOne()
                 .HasForeignKey(d => d.EventId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Event>()
                 .HasMany(e => e.Comments)
                 .WithOne(c => c.Event)
-                .HasForeignKey(c => c.EventId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // ============= EventTask تنظیمات =============
@@ -111,14 +110,14 @@ namespace EventsManagement.Infrastructure.Data
                 .HasMany(t => t.Documents)
                 .WithOne()
                 .HasForeignKey(d => d.TaskId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             // ============= TaskReply تنظیمات =============
             modelBuilder.Entity<TaskReply>()
                 .HasMany(r => r.Documents)
                 .WithOne()
                 .HasForeignKey(d => d.TaskReplyId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             // ============= EventRelationship تنظیمات =============
             modelBuilder.Entity<EventRelationship>()

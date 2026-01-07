@@ -73,8 +73,11 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IFileUploadService, FileUploadService>();
 
 // ============= MediatR کانفیگ =============
-builder.Services.AddMediatR(cfg => 
-    cfg.RegisterServicesFromAssembly(typeof(LoginValidator).Assembly));
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(LoginValidator).Assembly); // Application
+    cfg.RegisterServicesFromAssembly(typeof(ApplicationDbContext).Assembly); // Infrastructure
+});
 
 // ============= FluentValidation کانفیگ =============
 builder.Services.AddValidatorsFromAssemblyContaining<LoginValidator>();

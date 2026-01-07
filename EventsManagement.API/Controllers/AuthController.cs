@@ -213,7 +213,7 @@ namespace EventsManagement.API.Controllers
         /// <summary>
         /// ثبت فعالیت کاربر
         /// </summary>
-        private async Task LogUserActivity(string userId, string activityType, string description, bool isSuccessful)
+        private async Task LogUserActivity(string userId, string activityType, string description, bool isSuccessful, string? errorMessage = null)
         {
             var log = new UserActivityLog
             {
@@ -223,8 +223,10 @@ namespace EventsManagement.API.Controllers
                 IpAddress = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "Unknown",
                 UserAgent = HttpContext.Request.Headers["User-Agent"].ToString(),
                 IsSuccessful = isSuccessful,
+                ErrorMessage = errorMessage,
                 ActivityDateTime = DateTime.Now,
                 CreatedBy = userId,
+                UpdatedBy = userId,
                 CreatedAt = DateTime.Now
             };
 

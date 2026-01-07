@@ -32,11 +32,8 @@ namespace EventsManagement.API.Controllers
         [HttpPost("Upload")]
         [Authorize(Roles = "Admin,Manager,Operator")]
         [RequestSizeLimit(104857600)] // 100MB
-        public async Task<ActionResult<ApiResult<object>>> UploadFile(
-            [FromForm] IFormFile file,
-            [FromForm] int? eventId,
-            [FromForm] int? taskId,
-            [FromForm] string? description)
+        [Consumes("multipart/form-data")]
+        public async Task<ActionResult<ApiResult<object>>> UploadFile([FromForm] FileUploadRequest request)
         {
             try
             {
@@ -46,11 +43,11 @@ namespace EventsManagement.API.Controllers
                     return Ok(ApiResult<object>.Failure("کاربر احراز هویت نشده است", 401));
 
                 var result = await _fileUploadService.UploadFileAsync(
-                    file, 
-                    eventId, 
-                    taskId, 
+                    request.File, 
+                    request.EventId, 
+                    request.TaskId, 
                     userId, 
-                    description ?? "");
+                    request.Description ?? "");
 
                 if (!result.Success)
                     return Ok(ApiResult<object>.Failure(result.Message, 400));
@@ -194,5 +191,31 @@ namespace EventsManagement.API.Controllers
                 return Ok(ApiResult.Failure("خطای سیستمی رخ داده است", 500));
             }
         }
+    }
+
+    /// <summary>
+    /// درخواست آپلود فایل
+    /// </summary>
+    public class FileUploadRequest
+    {
+        /// <summary>
+        /// فایل برای آپلود
+        /// </summary>
+        public required IFormFile File { get; set; }
+
+        /// <summary>
+        /// شناسه رویداد (اختیاری)
+        /// </summary>
+        public int? EventId { get; set; }
+
+        /// <summary>
+        /// شناسه وظیفه (اختیاری)
+        /// </summary>
+        public int? TaskId { get; set; }
+
+        /// <summary>
+        /// توضیحات (اختیاری)
+        /// </summary>
+        public string? Description { get; set; }
     }
 }
