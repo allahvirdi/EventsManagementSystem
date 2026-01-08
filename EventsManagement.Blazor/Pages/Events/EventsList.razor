@@ -8,7 +8,7 @@
 <div class="page-container">
     <div class="page-header">
         <h2>لیست رویدادها</h2>
-        <button class="btn btn-primary" @onclick="() => Navigation.NavigateTo(\"/events/create\")">
+        <button class="btn btn-primary" @onclick='() => Navigation.NavigateTo("/events/create")'>
             ثبت رویداد جدید
         </button>
     </div>
@@ -44,7 +44,7 @@
                             <td>@evt.CreatedAt.ToString("yyyy/MM/dd")</td>
                             <td><span class="badge">@evt.StatusId</span></td>
                             <td>
-                                <button class="btn btn-sm btn-info" @onclick="() => Navigation.NavigateTo($\"/events/{evt.Id}\")">جزئیات</button>
+                                <button class="btn btn-sm btn-info" @onclick='() => Navigation.NavigateTo($"/events/{evt.Id}")'>جزئیات</button>
                             </td>
                         </tr>
                     }

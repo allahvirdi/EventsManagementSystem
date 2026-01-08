@@ -12,7 +12,7 @@
 
     @if (!string.IsNullOrEmpty(errorMessage))
     {
-        <Alert Type="AlertType.Danger" Message="@errorMessage" OnClose="() => errorMessage = string.Empty" />
+        <Alert Type="danger" Message="@errorMessage" OnClose="() => errorMessage = string.Empty" />
     }
 
     @if (isLoading)
@@ -66,7 +66,7 @@
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
-                    <button type="button" class="btn btn-secondary" @onclick="() => Navigation.NavigateTo(\"/users\")">
+                    <button type="button" class="btn btn-secondary" @onclick='() => Navigation.NavigateTo("/users")'>
                         انصراف
                     </button>
                 </div>

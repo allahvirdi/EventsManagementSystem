@@ -8,7 +8,7 @@
 <div class="page-container">
     <div class="page-header">
         <h2>مدیریت کاربران</h2>
-        <button class="btn btn-primary" @onclick="() => Navigation.NavigateTo(\"/users/create\")">
+        <button class="btn btn-primary" @onclick='() => Navigation.NavigateTo("/users/create")'>
             افزودن کاربر جدید
         </button>
     </div>
@@ -61,7 +61,7 @@
                             </td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="btn btn-sm btn-info" @onclick="() => Navigation.NavigateTo($\"/users/edit/{user.Id}\")">
+                                    <button class="btn btn-sm btn-info" @onclick='() => Navigation.NavigateTo($"/users/edit/{user.Id}")'>
                                         ویرایش
                                     </button>
                                     <button class="btn btn-sm btn-warning" @onclick="() => ShowResetPasswordModal(user.Id)">
@@ -87,7 +87,7 @@
     @if (showResetModal)
     {
         <Modal Title="ریست رمز عبور" OnClose="CloseResetModal">
-            <BodyContent>
+            <ChildContent>
                 <div class="modal-form">
                     <div class="form-group">
                         <label>رمز عبور جدید</label>
@@ -99,10 +99,10 @@
                     </div>
                     @if (!string.IsNullOrEmpty(resetError))
                     {
-                        <Alert Type="AlertType.Danger" Message="@resetError" />
+                        <Alert Type="danger" Message="@resetError" />
                     }
                 </div>
-            </BodyContent>
+            </ChildContent>
             <FooterContent>
                 <button class="btn btn-primary" @onclick="HandleResetPassword">ریست رمز</button>
                 <button class="btn btn-secondary" @onclick="CloseResetModal">انصراف</button>

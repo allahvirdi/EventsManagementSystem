@@ -10,9 +10,9 @@
 
         @for (int i = StartPage; i <= EndPage; i++)
         {
-            var page = i;
-            <li class="page-item @(CurrentPage == page ? "active" : "")">
-                <a class="page-link" @onclick="() => OnPageChanged(page)" href="javascript:void(0)">@page</a>
+            var pageNum = i;
+            <li class="page-item @(CurrentPage == pageNum ? "active" : "")">
+                <a class="page-link" @onclick="() => OnPageChanged(pageNum)" href="javascript:void(0)">@pageNum</a>
             </li>
         }
 
