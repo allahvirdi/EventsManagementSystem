@@ -40,6 +40,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRzXENyZWF0ZUV2ZW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Events/EditEvent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRzXEVkaXRFdmVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Events/EventDetails.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRzXEV2ZW50RGV0YWlscy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -56,12 +60,72 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/OrganizationUnits/CreateOrganizationUnit.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JnYW5pemF0aW9uVW5pdHNcQ3JlYXRlT3JnYW5pemF0aW9uVW5pdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/OrganizationUnits/EditOrganizationUnit.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JnYW5pemF0aW9uVW5pdHNcRWRpdE9yZ2FuaXphdGlvblVuaXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/OrganizationUnits/OrganizationUnitsList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JnYW5pemF0aW9uVW5pdHNcT3JnYW5pemF0aW9uVW5pdHNMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Provinces/CreateProvince.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvdmluY2VzXENyZWF0ZVByb3ZpbmNlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Provinces/EditProvince.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvdmluY2VzXEVkaXRQcm92aW5jZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Provinces/ProvincesList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvdmluY2VzXFByb3ZpbmNlc0xpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Regions/CreateRegion.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaW9uc1xDcmVhdGVSZWdpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Regions/EditRegion.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaW9uc1xFZGl0UmVnaW9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Regions/RegionsList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaW9uc1xSZWdpb25zTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Schools/CreateSchool.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2Nob29sc1xDcmVhdGVTY2hvb2wucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Schools/EditSchool.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2Nob29sc1xFZGl0U2Nob29sLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Schools/SchoolsList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2Nob29sc1xTY2hvb2xzTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/CreateTask.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFza3NcQ3JlYXRlVGFzay5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/CreateTaskReply.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFza3NcQ3JlYXRlVGFza1JlcGx5LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/EditTask.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFza3NcRWRpdFRhc2sucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/TaskRepliesList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFza3NcVGFza1JlcGxpZXNMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/TasksList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFza3NcVGFza3NMaXN0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Users/CreateUser.razor]

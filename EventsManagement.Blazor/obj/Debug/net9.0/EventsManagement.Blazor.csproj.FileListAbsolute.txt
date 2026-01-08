@@ -820,7 +820,6 @@ C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\o
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\scopedcss\bundle\EventsManagement.Blazor.styles.css
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\blazor.build.boot-extension.json
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\blazor.boot.json
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\3n5fl5knqt-81sotqnb8s.gz
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\wjerutolu9-odx9ycm3li.gz
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\5g4dt9i14x-md9yvkcqlf.gz
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\mq226lj8uy-y6dh5fvd4a.gz
@@ -1034,10 +1033,12 @@ C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\o
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\refint\EventsManagement.Blazor.dll
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\EventsManagement.Blazor.pdb
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\ref\EventsManagement.Blazor.dll
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.5os6xgecyo.wasm
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.p20t6ymf0a.pdb
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.5os6xgecyo.wasm.gz
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.p20t6ymf0a.pdb.gz
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\1nzelbxatg-5os6xgecyo.gz
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\yykpfs5upl-p20t6ymf0a.gz
-C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\9xilpdal9c-0ou7imh6l8.gz
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.8j1meicqvm.wasm
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.26bciduax9.pdb
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.8j1meicqvm.wasm.gz
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\bin\Debug\net9.0\wwwroot\_framework\EventsManagement.Blazor.26bciduax9.pdb.gz
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\3n5fl5knqt-cl17w5cqmf.gz
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\7syhlymqfj-g2dgl60sjq.gz
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\1nzelbxatg-8j1meicqvm.gz
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\yykpfs5upl-26bciduax9.gz
+C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\obj\Debug\net9.0\compressed\9xilpdal9c-a52bwlmahs.gz
