@@ -64,6 +64,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFza3NcQ3JlYXRlVGFza1JlcGx5LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Users/CreateUser.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcQ3JlYXRlVXNlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Users/EditUser.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcRWRpdFVzZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Users/UsersList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlcnNMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/Alert.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEFsZXJ0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 

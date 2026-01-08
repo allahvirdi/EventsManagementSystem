@@ -1,0 +1,296 @@
+@page "/users/create"
+@inject HttpClient Http
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+
+<PageTitle>ایجاد کاربر جدید</PageTitle>
+
+<div class="page-container">
+    <div class="page-header">
+        <h2>ایجاد کاربر جدید</h2>
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <Alert Type="AlertType.Danger" Message="@errorMessage" OnClose="() => errorMessage = string.Empty" />
+    }
+
+    @if (isLoading)
+    {
+        <Loading />
+    }
+    else
+    {
+        <div class="form-card">
+            <EditForm Model="@model" OnValidSubmit="HandleSubmit">
+                <DataAnnotationsValidator />
+
+                <div class="form-group">
+                    <label>نام کامل</label>
+                    <InputText @bind-Value="model.FullName" class="form-control" placeholder="نام و نام خانوادگی" />
+                    <ValidationMessage For="@(() => model.FullName)" />
+                </div>
+
+                <div class="form-group">
+                    <label>ایمیل</label>
+                    <InputText @bind-Value="model.Email" class="form-control" type="email" placeholder="example@domain.com" />
+                    <ValidationMessage For="@(() => model.Email)" />
+                </div>
+
+                <div class="form-group">
+                    <label>شماره تماس</label>
+                    <InputText @bind-Value="model.PhoneNumber" class="form-control" placeholder="09123456789" />
+                    <ValidationMessage For="@(() => model.PhoneNumber)" />
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>رمز عبور</label>
+                        <InputText @bind-Value="model.Password" class="form-control" type="password" placeholder="حداقل 6 کاراکتر" />
+                        <ValidationMessage For="@(() => model.Password)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>تکرار رمز عبور</label>
+                        <InputText @bind-Value="model.ConfirmPassword" class="form-control" type="password" />
+                        <ValidationMessage For="@(() => model.ConfirmPassword)" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>نقش‌های کاربری</label>
+                    <div class="roles-checkboxes">
+                        @foreach (var role in availableRoles)
+                        {
+                            <label class="checkbox-label">
+                                <input type="checkbox" @onchange="e => ToggleRole(role, e)" />
+                                <span>@role</span>
+                            </label>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <InputCheckbox @bind-Value="model.IsActive" />
+                        <span>کاربر فعال است</span>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">ایجاد کاربر</button>
+                    <button type="button" class="btn btn-secondary" @onclick="() => Navigation.NavigateTo(\"/users\")">
+                        انصراف
+                    </button>
+                </div>
+            </EditForm>
+        </div>
+    }
+</div>
+
+@code {
+    private CreateUserModel model = new();
+    private bool isLoading = false;
+    private string errorMessage = string.Empty;
+    private List<string> availableRoles = new() { "Admin", "Manager", "User" };
+
+    private void ToggleRole(string role, ChangeEventArgs e)
+    {
+        if (e.Value is bool isChecked && isChecked)
+        {
+            if (!model.Roles.Contains(role))
+            {
+                model.Roles.Add(role);
+            }
+        }
+        else
+        {
+            model.Roles.Remove(role);
+        }
+    }
+
+    private async Task HandleSubmit()
+    {
+        if (model.Password != model.ConfirmPassword)
+        {
+            errorMessage = "رمز عبور و تکرار آن یکسان نیستند";
+            return;
+        }
+
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            var token = await AuthService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token))
+            {
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            Http.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await Http.PostAsJsonAsync("api/Users", model);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Navigation.NavigateTo("/users");
+            }
+            else
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                errorMessage = $"خطا در ایجاد کاربر: {content}";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"خطا: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private class CreateUserModel
+    {
+        [Required(ErrorMessage = "نام کامل الزامی است")]
+        public string FullName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "ایمیل الزامی است")]
+        [EmailAddress(ErrorMessage = "فرمت ایمیل صحیح نیست")]
+        public string Email { get; set; } = string.Empty;
+
+        public string? PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "رمز عبور الزامی است")]
+        [MinLength(6, ErrorMessage = "رمز عبور باید حداقل 6 کاراکتر باشد")]
+        public string Password { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "تکرار رمز عبور الزامی است")]
+        public string ConfirmPassword { get; set; } = string.Empty;
+
+        public bool IsActive { get; set; } = true;
+
+        public List<string> Roles { get; set; } = new();
+    }
+}
+
+<style>
+    .page-container {
+        padding: 20px;
+        direction: rtl;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .page-header {
+        margin-bottom: 30px;
+    }
+
+    .page-header h2 {
+        color: #333;
+        font-weight: 700;
+    }
+
+    .form-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 600;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+
+    .roles-checkboxes {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    .validation-message {
+        color: #dc3545;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        flex: 1;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+</style>

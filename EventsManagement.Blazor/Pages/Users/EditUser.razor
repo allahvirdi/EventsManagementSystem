@@ -1,0 +1,330 @@
+@page "/users/edit/{UserId}"
+@inject HttpClient Http
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+
+<PageTitle>ویرایش کاربر</PageTitle>
+
+<div class="page-container">
+    <div class="page-header">
+        <h2>ویرایش کاربر</h2>
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <Alert Type="AlertType.Danger" Message="@errorMessage" OnClose="() => errorMessage = string.Empty" />
+    }
+
+    @if (isLoading)
+    {
+        <Loading />
+    }
+    else if (model != null)
+    {
+        <div class="form-card">
+            <EditForm Model="@model" OnValidSubmit="HandleSubmit">
+                <DataAnnotationsValidator />
+
+                <div class="form-group">
+                    <label>نام کامل</label>
+                    <InputText @bind-Value="model.FullName" class="form-control" placeholder="نام و نام خانوادگی" />
+                    <ValidationMessage For="@(() => model.FullName)" />
+                </div>
+
+                <div class="form-group">
+                    <label>ایمیل (غیرقابل ویرایش)</label>
+                    <input type="text" value="@model.Email" class="form-control" disabled />
+                </div>
+
+                <div class="form-group">
+                    <label>شماره تماس</label>
+                    <InputText @bind-Value="model.PhoneNumber" class="form-control" placeholder="09123456789" />
+                    <ValidationMessage For="@(() => model.PhoneNumber)" />
+                </div>
+
+                <div class="form-group">
+                    <label>نقش‌های کاربری</label>
+                    <div class="roles-checkboxes">
+                        @foreach (var role in availableRoles)
+                        {
+                            <label class="checkbox-label">
+                                <input type="checkbox" 
+                                    checked="@model.Roles.Contains(role)"
+                                    @onchange="e => ToggleRole(role, e)" />
+                                <span>@role</span>
+                            </label>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <InputCheckbox @bind-Value="model.IsActive" />
+                        <span>کاربر فعال است</span>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
+                    <button type="button" class="btn btn-secondary" @onclick="() => Navigation.NavigateTo(\"/users\")">
+                        انصراف
+                    </button>
+                </div>
+            </EditForm>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string UserId { get; set; } = string.Empty;
+
+    private UpdateUserModel? model;
+    private bool isLoading = true;
+    private string errorMessage = string.Empty;
+    private List<string> availableRoles = new() { "Admin", "Manager", "User" };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUser();
+    }
+
+    private async Task LoadUser()
+    {
+        isLoading = true;
+
+        try
+        {
+            var token = await AuthService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token))
+            {
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            Http.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await Http.GetFromJsonAsync<ApiResponse<UserDto>>($"api/Users/{UserId}");
+
+            if (response?.IsSuccess == true && response.Data != null)
+            {
+                var user = response.Data;
+                model = new UpdateUserModel
+                {
+                    FullName = user.FullName,
+                    Email = user.Email,
+                    PhoneNumber = user.PhoneNumber,
+                    IsActive = user.IsActive,
+                    Roles = user.Roles?.ToList() ?? new()
+                };
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"خطا در بارگذاری اطلاعات: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void ToggleRole(string role, ChangeEventArgs e)
+    {
+        if (model == null) return;
+
+        if (e.Value is bool isChecked && isChecked)
+        {
+            if (!model.Roles.Contains(role))
+            {
+                model.Roles.Add(role);
+            }
+        }
+        else
+        {
+            model.Roles.Remove(role);
+        }
+    }
+
+    private async Task HandleSubmit()
+    {
+        if (model == null) return;
+
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            var token = await AuthService.GetTokenAsync();
+            Http.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await Http.PutAsJsonAsync($"api/Users/{UserId}", model);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Navigation.NavigateTo("/users");
+            }
+            else
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                errorMessage = $"خطا در بروزرسانی کاربر: {content}";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"خطا: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private class ApiResponse<T>
+    {
+        public bool IsSuccess { get; set; }
+        public T? Data { get; set; }
+    }
+
+    private class UserDto
+    {
+        public string Id { get; set; } = string.Empty;
+        public string FullName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; }
+        public bool IsActive { get; set; }
+        public List<string>? Roles { get; set; }
+    }
+
+    private class UpdateUserModel
+    {
+        [Required(ErrorMessage = "نام کامل الزامی است")]
+        public string FullName { get; set; } = string.Empty;
+
+        public string Email { get; set; } = string.Empty;
+
+        public string? PhoneNumber { get; set; }
+
+        public bool IsActive { get; set; } = true;
+
+        public List<string> Roles { get; set; } = new();
+    }
+}
+
+<style>
+    .page-container {
+        padding: 20px;
+        direction: rtl;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .page-header {
+        margin-bottom: 30px;
+    }
+
+    .page-header h2 {
+        color: #333;
+        font-weight: 700;
+    }
+
+    .form-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 600;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+
+    .form-control:disabled {
+        background: #f5f5f5;
+        cursor: not-allowed;
+    }
+
+    .roles-checkboxes {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    .validation-message {
+        color: #dc3545;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        flex: 1;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+</style>
