@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using FluentValidation;
-using MediatR;
 using EventsManagement.Infrastructure.Data;
 using EventsManagement.Shared.Entities;
 using EventsManagement.Infrastructure.Repositories;

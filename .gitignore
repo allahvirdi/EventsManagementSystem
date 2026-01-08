@@ -1,0 +1,100 @@
+﻿## =====================
+## Bdr.SSO – .gitignore کامل و افتا-پسند
+## آخرین بروزرسانی: آذر ۱۴۰۴
+## =====================
+
+# .NET Build + Binaries
+bin/
+obj/
+out/
+artifacts/
+
+# .NET User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.usersecrets.json
+
+# Rider / ReSharper
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Visual Studio / VS Code
+.vscode/
+.vs/
+*.code-workspace
+
+# Test results
+TestResults/
+*.trx
+
+# NuGet packages
+packages/
+*.nupkg
+*.snupkg
+
+# Local secrets & certificates 
+appsettings.Development.json
+appsettings.Local.json
+secrets/
+*.pfx
+*.p12
+*.key
+*.cer
+*.crt
+!*.example.pfx  
+
+# LocalDB / SQL Server local files
+*.mdf
+*.ldf
+*.bak
+
+# Migration files that contain sensitive data 
+**/Migrations/*_SeedData.cs
+**/Migrations/*Seed*.cs
+
+# Entity Framework Migrations 
+#**/Migrations/
+
+# Logs
+logs/
+*.log
+seq/
+
+# Docker / Containers
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Temp files
+*.tmp
+*.temp
+*.cache
+*.tmpproj
+
+# Blazor / WebAssembly specific
+wwwroot/js/
+wwwroot/css/
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+# Rider/IntelliJ specific
+.idea/**/bin/
+.idea/**/obj/
+.idea/**/artifacts/
+
+# Final – Safety
+[Bb]in/
+[Oo]bj/
