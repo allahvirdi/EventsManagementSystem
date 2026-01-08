@@ -42,7 +42,7 @@
                     
                     <div class="form-group">
                         <label>کد</label>
-                        <input type="text" class="form-control" @bind="newItemCode" placeholder="کد" />
+                        <input type="number" class="form-control" @bind="newItemCode" placeholder="کد" />
                     </div>
                     
                     <div class="form-group">
@@ -107,7 +107,7 @@
     private bool showAddModal = false;
     private bool isSaving = false;
     private string errorMessage = string.Empty;
-    private string newItemCode = string.Empty;
+    private int newItemCode = 0;
     private string newItemValue = string.Empty;
 
     protected override async Task OnInitializedAsync()
@@ -141,7 +141,7 @@
 
     private void OpenAddModal()
     {
-        newItemCode = string.Empty;
+        newItemCode = 0;
         newItemValue = string.Empty;
         errorMessage = string.Empty;
         showAddModal = true;
@@ -173,10 +173,13 @@
 
             var newItem = new
             {
-                tableName = TableName,
-                code = newItemCode,
-                value = newItemValue,
-                isActive = true
+                TableName = TableName,
+                Code = newItemCode,
+                Value = newItemValue,
+                Description = string.Empty,
+                DisplayOrder = 0,
+                ParentId = (int?)null,
+                IsActive = true
             };
 
             var response = await Http.PostAsJsonAsync("api/DynamicTables", newItem);

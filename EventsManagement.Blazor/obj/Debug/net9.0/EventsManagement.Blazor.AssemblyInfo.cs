@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EventsManagement.Blazor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9c2b3b5dac58f6bc467f975ed9174b4daf1941bb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0172bfa0c39c61a5f50e7166049620af99c87a84")]
 [assembly: System.Reflection.AssemblyProductAttribute("EventsManagement.Blazor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EventsManagement.Blazor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
