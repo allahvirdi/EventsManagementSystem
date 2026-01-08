@@ -1,0 +1,82 @@
+@using System.Globalization
+
+<div class="persian-datepicker">
+    <input type="text" 
+           class="@CssClass" 
+           value="@GetPersianDateString()" 
+           @onchange="HandleDateChange"
+           placeholder="@Placeholder"
+           maxlength="10" />
+    <small class="form-text text-muted">فرمت: 1403/10/15</small>
+</div>
+
+@code {
+    [Parameter]
+    public DateTime? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<DateTime?> ValueChanged { get; set; }
+
+    [Parameter]
+    public string CssClass { get; set; } = "form-control";
+
+    [Parameter]
+    public string Placeholder { get; set; } = "1403/10/15";
+
+    private static readonly PersianCalendar _persianCalendar = new PersianCalendar();
+
+    private string GetPersianDateString()
+    {
+        if (Value.HasValue)
+        {
+            var date = Value.Value;
+            return $"{_persianCalendar.GetYear(date):0000}/{_persianCalendar.GetMonth(date):00}/{_persianCalendar.GetDayOfMonth(date):00}";
+        }
+        return string.Empty;
+    }
+
+    private async Task HandleDateChange(ChangeEventArgs e)
+    {
+        var input = e.Value?.ToString();
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            await ValueChanged.InvokeAsync(null);
+            return;
+        }
+
+        try
+        {
+            var parts = input.Split('/');
+            if (parts.Length == 3 &&
+                int.TryParse(parts[0], out int year) &&
+                int.TryParse(parts[1], out int month) &&
+                int.TryParse(parts[2], out int day))
+            {
+                var gregorianDate = _persianCalendar.ToDateTime(year, month, day, 0, 0, 0, 0);
+                await ValueChanged.InvokeAsync(gregorianDate);
+            }
+        }
+        catch
+        {
+            // Invalid date format
+        }
+    }
+}
+
+<style>
+    .persian-datepicker {
+        position: relative;
+    }
+
+    .persian-datepicker input {
+        direction: ltr;
+        text-align: center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .persian-datepicker .form-text {
+        font-size: 11px;
+        color: #6c757d;
+        margin-top: 4px;
+    }
+</style>

@@ -152,6 +152,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFBhZ2luYXRpb24ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/PersianDatePicker.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFBlcnNpYW5EYXRlUGlja2VyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
