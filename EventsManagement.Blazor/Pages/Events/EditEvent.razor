@@ -245,7 +245,7 @@
                     ImpactScopeId = response.ImpactScopeId,
                     ImpactRangeId = response.ImpactRangeId,
                     EventStartDate = response.EventStartDate,
-                    EventEndDate = response.EventEndDate,
+                    EventEndDate = response.EventEndDate ?? DateTime.Now.AddDays(7),
                     ActionUnitId = response.ActionUnitId
                 };
 
