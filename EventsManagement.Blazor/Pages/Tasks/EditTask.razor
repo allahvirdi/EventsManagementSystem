@@ -40,13 +40,13 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>تاریخ شروع</label>
-                        <PersianDatePicker @bind-Value="model.StartDate" />
+                        <PersianDatePicker Value="@startDate" ValueChanged="@((DateTime? val) => { startDate = val; model.StartDate = val ?? DateTime.Now; })" />
                         <ValidationMessage For="@(() => model.StartDate)" />
                     </div>
 
                     <div class="form-group">
                         <label>مهلت انجام</label>
-                        <PersianDatePicker @bind-Value="model.DueDate" />
+                        <PersianDatePicker Value="@dueDate" ValueChanged="@((DateTime? val) => { dueDate = val; model.DueDate = val ?? DateTime.Now; })" />
                         <ValidationMessage For="@(() => model.DueDate)" />
                     </div>
                 </div>
@@ -89,6 +89,10 @@
     private string errorMessage = string.Empty;
     private int? eventId;
 
+    // Date values
+    private DateTime? startDate;
+    private DateTime? dueDate;
+
     protected override async Task OnInitializedAsync()
     {
         await LoadTask();
@@ -126,6 +130,10 @@
                     StatusId = response.StatusId,
                     AssignedToOrganizationUnitId = response.AssignedToOrganizationUnitId
                 };
+
+                // Populate intermediate fields
+                startDate = response.StartDate;
+                dueDate = response.DueDate;
             }
         }
         catch (Exception ex)

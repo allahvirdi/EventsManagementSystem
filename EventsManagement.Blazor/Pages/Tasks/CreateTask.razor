@@ -40,13 +40,13 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>تاریخ شروع</label>
-                        <PersianDatePicker @bind-Value="model.StartDate" />
+                        <PersianDatePicker Value="@startDate" ValueChanged="@((DateTime? val) => { startDate = val; model.StartDate = val ?? DateTime.Now; })" />
                         <ValidationMessage For="@(() => model.StartDate)" />
                     </div>
 
                     <div class="form-group">
                         <label>مهلت انجام</label>
-                        <PersianDatePicker @bind-Value="model.DueDate" />
+                        <PersianDatePicker Value="@dueDate" ValueChanged="@((DateTime? val) => { dueDate = val; model.DueDate = val ?? DateTime.Now.AddDays(7); })" />
                         <ValidationMessage For="@(() => model.DueDate)" />
                     </div>
                 </div>
@@ -87,6 +87,10 @@
     private CreateTaskModel model = new();
     private bool isLoading = false;
     private string errorMessage = string.Empty;
+
+    // Date values
+    private DateTime? startDate = DateTime.Now;
+    private DateTime? dueDate = DateTime.Now.AddDays(7);
 
     protected override void OnInitialized()
     {
