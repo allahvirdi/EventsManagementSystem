@@ -5,7 +5,7 @@
     <div class="form-group">
         <label>استان</label>
         <div class="input-group">
-            <select class="form-control" @bind="selectedProvinceId" @bind:after="OnProvinceChanged">
+            <select class="form-control" value="@selectedProvinceId" @onchange="OnProvinceChangedEvent">
                 <option value="">-- انتخاب استان --</option>
                 @foreach (var province in provinces)
                 {
@@ -24,7 +24,7 @@
         <div class="form-group">
             <label>منطقه</label>
             <div class="input-group">
-                <select class="form-control" @bind="selectedRegionId" @bind:after="OnRegionChanged">
+                <select class="form-control" value="@selectedRegionId" @onchange="OnRegionChangedEvent">
                     <option value="">-- انتخاب منطقه --</option>
                     @foreach (var region in regions)
                     {
@@ -44,7 +44,7 @@
         <div class="form-group">
             <label>مدرسه</label>
             <div class="input-group">
-                <select class="form-control" @bind="selectedSchoolId" @bind:after="OnSchoolChanged">
+                <select class="form-control" value="@selectedSchoolId" @onchange="OnSchoolChangedEvent">
                     <option value="">-- انتخاب مدرسه --</option>
                     @foreach (var school in schools)
                     {
@@ -234,6 +234,19 @@
         }
     }
 
+    private async Task OnProvinceChangedEvent(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int provinceId) && provinceId > 0)
+        {
+            selectedProvinceId = provinceId;
+        }
+        else
+        {
+            selectedProvinceId = null;
+        }
+        await OnProvinceChanged();
+    }
+
     private async Task OnRegionChanged()
     {
         await RegionIdChanged.InvokeAsync(selectedRegionId);
@@ -248,10 +261,34 @@
             await LoadSchools(selectedRegionId.Value);
         }
     }
-
+    private async Task OnRegionChangedEvent(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int regionId) && regionId > 0)
+        {
+            selectedRegionId = regionId;
+        }
+        else
+        {
+            selectedRegionId = null;
+        }
+        await OnRegionChanged();
+    }
     private async Task OnSchoolChanged()
     {
         await SchoolIdChanged.InvokeAsync(selectedSchoolId);
+    }
+
+    private async Task OnSchoolChangedEvent(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int schoolId) && schoolId > 0)
+        {
+            selectedSchoolId = schoolId;
+        }
+        else
+        {
+            selectedSchoolId = null;
+        }
+        await OnSchoolChanged();
     }
 
     private void OpenAddModal(string type)
