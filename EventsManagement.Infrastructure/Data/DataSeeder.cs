@@ -37,6 +37,9 @@ public class DataSeeder
             // Seed Dynamic Tables
             await SeedDynamicTablesAsync();
 
+            // Seed Organization Units
+            await SeedOrganizationUnitsAsync();
+
             // Seed Master Data (Province, Region, School samples)
             await SeedMasterDataAsync();
 
@@ -102,6 +105,46 @@ public class DataSeeder
         {
             var dynamicTables = new List<DynamicTable>
             {
+                // EventSource - منابع رویداد
+                new() { TableName = "EventSource", Code = 1, Value = "داخلی", Description = "رویداد داخلی سازمان", IsActive = true, DisplayOrder = 1, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventSource", Code = 2, Value = "خارجی", Description = "رویداد خارج از سازمان", IsActive = true, DisplayOrder = 2, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventSource", Code = 3, Value = "آموزش و پرورش", Description = "رویداد آموزش و پرورش", IsActive = true, DisplayOrder = 3, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventSource", Code = 4, Value = "دولتی", Description = "رویداد دولتی", IsActive = true, DisplayOrder = 4, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+
+                // EventSubject - موضوعات رویداد
+                new() { TableName = "EventSubject", Code = 1, Value = "آموزشی", Description = "موضوعات آموزشی", IsActive = true, DisplayOrder = 1, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventSubject", Code = 2, Value = "پرورشی", Description = "موضوعات پرورشی", IsActive = true, DisplayOrder = 2, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventSubject", Code = 3, Value = "فرهنگی", Description = "موضوعات فرهنگی", IsActive = true, DisplayOrder = 3, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventSubject", Code = 4, Value = "ورزشی", Description = "موضوعات ورزشی", IsActive = true, DisplayOrder = 4, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventSubject", Code = 5, Value = "اداری", Description = "موضوعات اداری", IsActive = true, DisplayOrder = 5, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventSubject", Code = 6, Value = "مالی", Description = "موضوعات مالی", IsActive = true, DisplayOrder = 6, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "EventSubject", Code = 7, Value = "فناوری اطلاعات", Description = "موضوعات IT", IsActive = true, DisplayOrder = 7, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+
+                // Urgency - میزان فوریت
+                new() { TableName = "Urgency", Code = 1, Value = "عادی", Description = "اولویت عادی", IsActive = true, DisplayOrder = 1, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "Urgency", Code = 2, Value = "متوسط", Description = "اولویت متوسط", IsActive = true, DisplayOrder = 2, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "Urgency", Code = 3, Value = "بالا", Description = "اولویت بالا", IsActive = true, DisplayOrder = 3, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "Urgency", Code = 4, Value = "فوری", Description = "فوری و حیاتی", IsActive = true, DisplayOrder = 4, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "Urgency", Code = 5, Value = "بحرانی", Description = "وضعیت بحرانی", IsActive = true, DisplayOrder = 5, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+
+                // ScopeType - نوع محدوده
+                new() { TableName = "ScopeType", Code = 1, Value = "استانی", Description = "سطح استان", IsActive = true, DisplayOrder = 1, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "ScopeType", Code = 2, Value = "منطقه‌ای", Description = "سطح منطقه", IsActive = true, DisplayOrder = 2, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "ScopeType", Code = 3, Value = "مدرسه", Description = "سطح مدرسه", IsActive = true, DisplayOrder = 3, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "ScopeType", Code = 4, Value = "کشوری", Description = "سطح کشور", IsActive = true, DisplayOrder = 4, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+
+                // ImpactScopeType - نوع محدوده تأثیر
+                new() { TableName = "ImpactScopeType", Code = 1, Value = "استانی", Description = "تأثیر استانی", IsActive = true, DisplayOrder = 1, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "ImpactScopeType", Code = 2, Value = "منطقه‌ای", Description = "تأثیر منطقه‌ای", IsActive = true, DisplayOrder = 2, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "ImpactScopeType", Code = 3, Value = "مدرسه", Description = "تأثیر مدرسه", IsActive = true, DisplayOrder = 3, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "ImpactScopeType", Code = 4, Value = "چند استانی", Description = "تأثیر چند استانی", IsActive = true, DisplayOrder = 4, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "ImpactScopeType", Code = 5, Value = "کشوری", Description = "تأثیر کشوری", IsActive = true, DisplayOrder = 5, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+
+                // ImpactRange - دامنه تأثیر (درون/برون دستگاهی)
+                new() { TableName = "ImpactRange", Code = 1, Value = "درون دستگاهی", Description = "تأثیر داخل سازمان", IsActive = true, DisplayOrder = 1, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "ImpactRange", Code = 2, Value = "برون دستگاهی", Description = "تأثیر خارج از سازمان", IsActive = true, DisplayOrder = 2, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { TableName = "ImpactRange", Code = 3, Value = "ترکیبی", Description = "تأثیر داخل و خارج", IsActive = true, DisplayOrder = 3, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+
                 // وضعیت رویداد
                 new() { TableName = "EventStatus", Code = 1, Value = "ثبت شده", Description = "رویداد ثبت شده است", IsActive = true, DisplayOrder = 1, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
                 new() { TableName = "EventStatus", Code = 2, Value = "در حال بررسی", Description = "رویداد در حال بررسی است", IsActive = true, DisplayOrder = 2, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
@@ -142,6 +185,25 @@ public class DataSeeder
 
             await _context.DynamicTables.AddRangeAsync(dynamicTables);
             _logger.LogInformation($"Seeded {dynamicTables.Count} dynamic table entries");
+        }
+    }
+
+    private async Task SeedOrganizationUnitsAsync()
+    {
+        if (!await _context.OrganizationUnits.AnyAsync())
+        {
+            var orgUnits = new List<OrganizationUnit>
+            {
+                new() { Code = 1, Name = "دفتر برنامه‌ریزی و نظارت راهبردی", UnitType = "Internal", ParentUnitId = null, IsActive = true, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { Code = 2, Name = "دفتر فناوری اطلاعات و ارتباطات", UnitType = "Internal", ParentUnitId = null, IsActive = true, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { Code = 3, Name = "دفتر امور مالی و اداری", UnitType = "Internal", ParentUnitId = null, IsActive = true, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { Code = 4, Name = "دفتر آموزش ابتدایی", UnitType = "Internal", ParentUnitId = null, IsActive = true, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { Code = 5, Name = "دفتر آموزش متوسطه", UnitType = "Internal", ParentUnitId = null, IsActive = true, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+                new() { Code = 6, Name = "دفتر امور پرورشی و فرهنگی", UnitType = "Internal", ParentUnitId = null, IsActive = true, CreatedBy = "System", UpdatedBy = "", CreatedAt = DateTime.Now },
+            };
+
+            await _context.OrganizationUnits.AddRangeAsync(orgUnits);
+            _logger.LogInformation($"Seeded {orgUnits.Count} organization units");
         }
     }
 
