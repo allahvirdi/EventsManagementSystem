@@ -78,6 +78,7 @@
                     AllowAdd="true" />
 
                 <CascadingLocationSelector 
+                    LabelPrefix="محدوده"
                     @bind-ProvinceId="scopeProvinceId"
                     @bind-RegionId="scopeRegionId"
                     @bind-SchoolId="scopeSchoolId"
@@ -98,6 +99,7 @@
                     AllowAdd="true" />
 
                 <CascadingLocationSelector 
+                    LabelPrefix="محدوده تأثیر"
                     @bind-ProvinceId="impactProvinceId"
                     @bind-RegionId="impactRegionId"
                     @bind-SchoolId="impactSchoolId"
@@ -123,31 +125,27 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label>تاریخ شروع *</label>
-                        <PersianDatePicker Value="@startDate" ValueChanged="@((DateTime? val) => { startDate = val; model.StartDate = val ?? DateTime.Now; })" />
-                        <ValidationMessage For="@(() => model.StartDate)" />
+                        <PersianDatePicker Value="@startDate" ValueChanged="@((DateTime? val) => { startDate = val; model.EventStartDate = val ?? DateTime.Now; })" />
+                        <ValidationMessage For="@(() => model.EventStartDate)" />
                     </div>
 
                     <div class="form-group">
                         <label>تاریخ پایان *</label>
-                        <PersianDatePicker Value="@endDate" ValueChanged="@((DateTime? val) => { endDate = val; model.EndDate = val ?? DateTime.Now; })" />
-                        <ValidationMessage For="@(() => model.EndDate)" />
+                        <PersianDatePicker Value="@endDate" ValueChanged="@((DateTime? val) => { endDate = val; model.EventEndDate = val ?? DateTime.Now; })" />
+                        <ValidationMessage For="@(() => model.EventEndDate)" />
                     </div>
                 </div>
 
                 <!-- بخش ۷: واحد اقدام کننده -->
                 <div class="section-header">واحد اقدام کننده</div>
 
-                <div class="form-group">
-                    <label>واحد مسئول *</label>
-                    <select @bind="model.ResponsibleUnitId" class="form-control">
-                        <option value="0">واحد سازمانی را انتخاب کنید</option>
-                        @foreach (var unit in organizationUnits)
-                        {
-                            <option value="@unit.Id">@unit.Name</option>
-                        }
-                    </select>
-                    <ValidationMessage For="@(() => model.ResponsibleUnitId)" />
-                </div>
+                <DynamicDropdown 
+                    TableName="OrganizationUnit"
+                    Title="واحد مسئول *"
+                    Placeholder="واحد سازمانی را انتخاب کنید"
+                    Value="@responsibleUnitId"
+                    ValueChanged="@((int? val) => { responsibleUnitId = val; model.ActionUnitId = val ?? 0; })"
+                    AllowAdd="true" />
 
                 <!-- بخش ۸: مستندات -->
                 <div class="section-header">مستندات</div>
@@ -184,6 +182,9 @@
     private int? impactScopeId;
     private int? impactRangeId;
 
+    // واحد مسئول
+    private int? responsibleUnitId;
+
     // محدوده وقوع
     private int? scopeProvinceId;
     private int? scopeRegionId;
@@ -201,37 +202,6 @@
     // فایل‌ها و رویدادهای مرتبط
     private List<FileUploader.UploadedFile> uploadedFiles = new();
     private List<int> relatedEventIds = new();
-
-    // لیست واحدهای سازمانی
-    private List<OrganizationUnitItem> organizationUnits = new();
-
-    protected override async Task OnInitializedAsync()
-    {
-        await LoadOrganizationUnits();
-    }
-
-    private async Task LoadOrganizationUnits()
-    {
-        try
-        {
-            var token = await AuthService.GetTokenAsync();
-            if (string.IsNullOrEmpty(token)) return;
-
-            Http.DefaultRequestHeaders.Authorization = 
-                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-
-            var response = await Http.GetAsync("api/OrganizationUnits?pageSize=1000");
-            if (response.IsSuccessStatusCode)
-            {
-                var result = await response.Content.ReadFromJsonAsync<PagedResult<OrganizationUnitItem>>();
-                if (result != null)
-                {
-                    organizationUnits = result.Items;
-                }
-            }
-        }
-        catch { }
-    }
 
     private async Task HandleSubmit()
     {
@@ -323,20 +293,14 @@
         public int ImpactRangeId { get; set; }
 
         [Required(ErrorMessage = "تاریخ شروع الزامی است")]
-        public DateTime StartDate { get; set; } = DateTime.Now;
+        public DateTime EventStartDate { get; set; } = DateTime.Now;
 
         [Required(ErrorMessage = "تاریخ پایان الزامی است")]
-        public DateTime EndDate { get; set; } = DateTime.Now.AddDays(7);
+        public DateTime EventEndDate { get; set; } = DateTime.Now.AddDays(7);
 
         [Required(ErrorMessage = "واحد مسئول الزامی است")]
         [Range(1, int.MaxValue, ErrorMessage = "واحد مسئول را انتخاب کنید")]
-        public int ResponsibleUnitId { get; set; }
-    }
-
-    private class OrganizationUnitItem
-    {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        public int ActionUnitId { get; set; }
     }
 
     private class PagedResult<T>

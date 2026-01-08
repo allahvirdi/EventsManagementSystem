@@ -3,7 +3,7 @@
 
 <div class="cascading-location">
     <div class="form-group">
-        <label>استان</label>
+        <label>@(string.IsNullOrEmpty(LabelPrefix) ? "استان" : $"{LabelPrefix} - استان")</label>
         <div class="input-group">
             <select class="form-control" value="@selectedProvinceId" @onchange="OnProvinceChangedEvent">
                 <option value="">-- انتخاب استان --</option>
@@ -22,7 +22,7 @@
     @if (selectedProvinceId.HasValue)
     {
         <div class="form-group">
-            <label>منطقه</label>
+            <label>@(string.IsNullOrEmpty(LabelPrefix) ? "منطقه" : $"{LabelPrefix} - منطقه")</label>
             <div class="input-group">
                 <select class="form-control" value="@selectedRegionId" @onchange="OnRegionChangedEvent">
                     <option value="">-- انتخاب منطقه --</option>
@@ -42,7 +42,7 @@
     @if (selectedRegionId.HasValue && ShowSchool)
     {
         <div class="form-group">
-            <label>مدرسه</label>
+            <label>@(string.IsNullOrEmpty(LabelPrefix) ? "مدرسه" : $"{LabelPrefix} - مدرسه")</label>
             <div class="input-group">
                 <select class="form-control" value="@selectedSchoolId" @onchange="OnSchoolChangedEvent">
                     <option value="">-- انتخاب مدرسه --</option>
@@ -111,8 +111,9 @@
     [Parameter]
     public bool ShowSchool { get; set; } = true;
 
-    [Parameter]
-    public bool AllowAddProvince { get; set; } = false;
+    [Parameter]    public string LabelPrefix { get; set; } = string.Empty;
+
+    [Parameter]    public bool AllowAddProvince { get; set; } = false;
 
     [Parameter]
     public bool AllowAddRegion { get; set; } = false;
