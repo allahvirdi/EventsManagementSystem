@@ -166,18 +166,32 @@
         try
         {
             var token = await AuthService.GetTokenAsync();
-            if (string.IsNullOrEmpty(token)) return;
+            if (string.IsNullOrEmpty(token))
+            {
+                Console.WriteLine("CascadingLocationSelector: No token found for provinces");
+                return;
+            }
 
             Http.DefaultRequestHeaders.Authorization = 
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-            var response = await Http.GetFromJsonAsync<PagedResult<LocationItem>>("api/Provinces?pageSize=1000");
-            if (response != null)
+            Console.WriteLine("CascadingLocationSelector: Loading provinces");
+            var apiResponse = await Http.GetFromJsonAsync<ApiResult<List<LocationItem>>>("api/Provinces");
+            
+            if (apiResponse != null && apiResponse.IsSuccess && apiResponse.Data != null)
             {
-                provinces = response.Items;
+                provinces = apiResponse.Data;
+                Console.WriteLine($"CascadingLocationSelector: Loaded {provinces.Count} provinces");
+            }
+            else
+            {
+                Console.WriteLine("CascadingLocationSelector: API returned no provinces data");
             }
         }
-        catch { }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"CascadingLocationSelector: Error loading provinces: {ex.Message}");
+        }
     }
 
     private async Task LoadRegions(int provinceId)
@@ -190,13 +204,23 @@
             Http.DefaultRequestHeaders.Authorization = 
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-            var response = await Http.GetFromJsonAsync<PagedResult<LocationItem>>($"api/Regions?provinceId={provinceId}&pageSize=1000");
-            if (response != null)
+            Console.WriteLine($"CascadingLocationSelector: Loading regions for province {provinceId}");
+            var apiResponse = await Http.GetFromJsonAsync<ApiResult<List<LocationItem>>>($"api/Regions/ByProvince/{provinceId}");
+            
+            if (apiResponse != null && apiResponse.IsSuccess && apiResponse.Data != null)
             {
-                regions = response.Items;
+                regions = apiResponse.Data;
+                Console.WriteLine($"CascadingLocationSelector: Loaded {regions.Count} regions");
+            }
+            else
+            {
+                Console.WriteLine("CascadingLocationSelector: API returned no regions data");
             }
         }
-        catch { }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"CascadingLocationSelector: Error loading regions: {ex.Message}");
+        }
     }
 
     private async Task LoadSchools(int regionId)
@@ -209,13 +233,23 @@
             Http.DefaultRequestHeaders.Authorization = 
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-            var response = await Http.GetFromJsonAsync<PagedResult<LocationItem>>($"api/Schools?regionId={regionId}&pageSize=1000");
-            if (response != null)
+            Console.WriteLine($"CascadingLocationSelector: Loading schools for region {regionId}");
+            var apiResponse = await Http.GetFromJsonAsync<ApiResult<List<LocationItem>>>($"api/Schools/ByRegion/{regionId}");
+            
+            if (apiResponse != null && apiResponse.IsSuccess && apiResponse.Data != null)
             {
-                schools = response.Items;
+                schools = apiResponse.Data;
+                Console.WriteLine($"CascadingLocationSelector: Loaded {schools.Count} schools");
+            }
+            else
+            {
+                Console.WriteLine("CascadingLocationSelector: API returned no schools data");
             }
         }
-        catch { }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"CascadingLocationSelector: Error loading schools: {ex.Message}");
+        }
     }
 
     private async Task OnProvinceChanged()
@@ -378,6 +412,13 @@
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
+    }
+
+    private class ApiResult<T>
+    {
+        public bool IsSuccess { get; set; }
+        public string Message { get; set; } = string.Empty;
+        public T? Data { get; set; }
     }
 
     private class PagedResult<T>

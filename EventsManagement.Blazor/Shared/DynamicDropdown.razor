@@ -121,18 +121,32 @@
         try
         {
             var token = await AuthService.GetTokenAsync();
-            if (string.IsNullOrEmpty(token)) return;
+            if (string.IsNullOrEmpty(token))
+            {
+                Console.WriteLine($"DynamicDropdown ({TableName}): No token found");
+                return;
+            }
 
             Http.DefaultRequestHeaders.Authorization = 
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-            var response = await Http.GetFromJsonAsync<List<DynamicItemDto>>($"api/DynamicTables/ByTable/{TableName}");
-            if (response != null)
+            Console.WriteLine($"DynamicDropdown: Loading items for table {TableName}");
+            var apiResponse = await Http.GetFromJsonAsync<ApiResult<List<DynamicItemDto>>>($"api/DynamicTables/ByTable/{TableName}");
+            
+            if (apiResponse != null && apiResponse.IsSuccess && apiResponse.Data != null)
             {
-                items = response;
+                items = apiResponse.Data;
+                Console.WriteLine($"DynamicDropdown ({TableName}): Loaded {items.Count} items");
+            }
+            else
+            {
+                Console.WriteLine($"DynamicDropdown ({TableName}): API returned no data or failed");
             }
         }
-        catch { }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"DynamicDropdown ({TableName}): Error loading items: {ex.Message}");
+        }
     }
 
     private async Task OnValueChanged()
@@ -228,6 +242,13 @@
         public int Id { get; set; }
         public string Value { get; set; } = string.Empty;
         public string Code { get; set; } = string.Empty;
+    }
+
+    private class ApiResult<T>
+    {
+        public bool IsSuccess { get; set; }
+        public string Message { get; set; } = string.Empty;
+        public T? Data { get; set; }
     }
 }
 
