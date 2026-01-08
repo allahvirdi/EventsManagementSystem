@@ -77,10 +77,11 @@
         await UploadFiles(e.GetMultipleFiles(10));
     }
 
-    private async Task HandleDrop(DragEventArgs e)
+    private Task HandleDrop(DragEventArgs e)
     {
         // Note: Blazor doesn't support drag & drop files directly yet
         // This is a placeholder for future enhancement
+        return Task.CompletedTask;
     }
 
     private async Task UploadFiles(IReadOnlyList<IBrowserFile> files)

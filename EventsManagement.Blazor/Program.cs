@@ -15,20 +15,19 @@ builder.Services.AddScoped<ILocalStorageService, LocalStorageService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 // ثبت AuthHttpHandler برای مدیریت خطاهای 401
-builder.Services.AddScoped<AuthHttpHandler>();
+builder.Services.AddTransient<AuthHttpHandler>();
 
-// تنظیم HttpClient با AuthHttpHandler
-builder.Services.AddHttpClient("API", client => 
-{
-    client.BaseAddress = new Uri(apiBaseUrl);
-})
-.AddHttpMessageHandler<AuthHttpHandler>();
-
-// HttpClient پیش‌فرض برای سایر موارد
+// تنظیم HttpClient پیش‌فرض با BaseAddress
 builder.Services.AddScoped(sp => 
 {
-    var httpClientFactory = sp.GetRequiredService<IHttpClientFactory>();
-    return httpClientFactory.CreateClient("API");
+    var handler = sp.GetRequiredService<AuthHttpHandler>();
+    handler.InnerHandler = new HttpClientHandler();
+    
+    var client = new HttpClient(handler)
+    {
+        BaseAddress = new Uri(apiBaseUrl)
+    };
+    return client;
 });
 
 await builder.Build().RunAsync();
