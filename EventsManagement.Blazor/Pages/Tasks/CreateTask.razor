@@ -1,0 +1,257 @@
+@page "/events/{EventId:int}/tasks/create"
+@inject HttpClient Http
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+
+<PageTitle>ثبت وظیفه جدید</PageTitle>
+
+<div class="page-container">
+    <div class="page-header">
+        <h2>ثبت وظیفه جدید</h2>
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <Alert Type="AlertType.Danger" Message="@errorMessage" OnClose="() => errorMessage = string.Empty" />
+    }
+
+    @if (isLoading)
+    {
+        <Loading />
+    }
+    else
+    {
+        <div class="form-card">
+            <EditForm Model="@model" OnValidSubmit="HandleSubmit">
+                <DataAnnotationsValidator />
+
+                <div class="form-group">
+                    <label>عنوان وظیفه</label>
+                    <InputText @bind-Value="model.Title" class="form-control" placeholder="عنوان وظیفه را وارد کنید" />
+                    <ValidationMessage For="@(() => model.Title)" />
+                </div>
+
+                <div class="form-group">
+                    <label>شرح وظیفه</label>
+                    <InputTextArea @bind-Value="model.Description" class="form-control" rows="4" placeholder="شرح کامل وظیفه" />
+                    <ValidationMessage For="@(() => model.Description)" />
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>تاریخ شروع</label>
+                        <InputDate @bind-Value="model.StartDate" class="form-control" />
+                        <ValidationMessage For="@(() => model.StartDate)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>مهلت انجام</label>
+                        <InputDate @bind-Value="model.DueDate" class="form-control" />
+                        <ValidationMessage For="@(() => model.DueDate)" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>درصد پیشرفت</label>
+                        <InputNumber @bind-Value="model.ProgressPercentage" class="form-control" min="0" max="100" />
+                        <ValidationMessage For="@(() => model.ProgressPercentage)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>وضعیت</label>
+                        <InputNumber @bind-Value="model.StatusId" class="form-control" />
+                        <ValidationMessage For="@(() => model.StatusId)" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>واحد سازمانی مسئول</label>
+                    <InputNumber @bind-Value="model.AssignedToOrganizationUnitId" class="form-control" />
+                    <ValidationMessage For="@(() => model.AssignedToOrganizationUnitId)" />
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">ثبت وظیفه</button>
+                    <button type="button" class="btn btn-secondary" @onclick="GoBack">انصراف</button>
+                </div>
+            </EditForm>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int EventId { get; set; }
+
+    private CreateTaskModel model = new();
+    private bool isLoading = false;
+    private string errorMessage = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        model.EventId = EventId;
+    }
+
+    private async Task HandleSubmit()
+    {
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            var token = await AuthService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token))
+            {
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            Http.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await Http.PostAsJsonAsync("api/Tasks", model);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Navigation.NavigateTo($"/events/{EventId}");
+            }
+            else
+            {
+                errorMessage = "خطا در ثبت وظیفه";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"خطا: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void GoBack()
+    {
+        Navigation.NavigateTo($"/events/{EventId}");
+    }
+
+    private class CreateTaskModel
+    {
+        public int EventId { get; set; }
+
+        [Required(ErrorMessage = "عنوان الزامی است")]
+        public string Title { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "شرح وظیفه الزامی است")]
+        public string Description { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "تاریخ شروع الزامی است")]
+        public DateTime StartDate { get; set; } = DateTime.Now;
+
+        [Required(ErrorMessage = "مهلت انجام الزامی است")]
+        public DateTime DueDate { get; set; } = DateTime.Now.AddDays(7);
+
+        [Range(0, 100, ErrorMessage = "درصد پیشرفت باید بین 0 تا 100 باشد")]
+        public int ProgressPercentage { get; set; } = 0;
+
+        [Required(ErrorMessage = "وضعیت الزامی است")]
+        public int StatusId { get; set; } = 1;
+
+        public int? AssignedToOrganizationUnitId { get; set; }
+    }
+}
+
+<style>
+    .page-container {
+        padding: 20px;
+        direction: rtl;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .page-header {
+        margin-bottom: 30px;
+    }
+
+    .page-header h2 {
+        color: #333;
+        font-weight: 700;
+    }
+
+    .form-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 600;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+
+    .validation-message {
+        color: #dc3545;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        flex: 1;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+</style>

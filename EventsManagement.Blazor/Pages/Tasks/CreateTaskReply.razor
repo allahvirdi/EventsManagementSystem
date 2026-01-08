@@ -1,0 +1,238 @@
+@page "/tasks/{TaskId:int}/replies/create"
+@inject HttpClient Http
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+
+<PageTitle>ثبت شرح اقدام</PageTitle>
+
+<div class="page-container">
+    <div class="page-header">
+        <h2>ثبت شرح اقدام</h2>
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <Alert Type="AlertType.Danger" Message="@errorMessage" OnClose="() => errorMessage = string.Empty" />
+    }
+
+    @if (isLoading)
+    {
+        <Loading />
+    }
+    else
+    {
+        <div class="form-card">
+            <EditForm Model="@model" OnValidSubmit="HandleSubmit">
+                <DataAnnotationsValidator />
+
+                <div class="form-group">
+                    <label>شرح اقدام</label>
+                    <InputTextArea @bind-Value="model.ReplyText" class="form-control" rows="6" 
+                        placeholder="شرح کامل اقدامات انجام شده را وارد کنید..." />
+                    <ValidationMessage For="@(() => model.ReplyText)" />
+                </div>
+
+                <div class="form-group">
+                    <label>وضعیت جدید</label>
+                    <InputNumber @bind-Value="model.NewStatusId" class="form-control" />
+                    <ValidationMessage For="@(() => model.NewStatusId)" />
+                </div>
+
+                <div class="form-group">
+                    <label>درصد پیشرفت جدید</label>
+                    <div class="progress-input">
+                        <InputNumber @bind-Value="model.NewProgressPercentage" class="form-control" min="0" max="100" />
+                        <span class="percentage-label">%</span>
+                    </div>
+                    <ValidationMessage For="@(() => model.NewProgressPercentage)" />
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">ثبت شرح اقدام</button>
+                    <button type="button" class="btn btn-secondary" @onclick="GoBack">انصراف</button>
+                </div>
+            </EditForm>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int TaskId { get; set; }
+
+    private CreateTaskReplyModel model = new();
+    private bool isLoading = false;
+    private string errorMessage = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        model.TaskId = TaskId;
+    }
+
+    private async Task HandleSubmit()
+    {
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            var token = await AuthService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token))
+            {
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            Http.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await Http.PostAsJsonAsync("api/TaskReplies", model);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Navigate back - you can customize this based on your navigation structure
+                Navigation.NavigateTo("/");
+            }
+            else
+            {
+                errorMessage = "خطا در ثبت شرح اقدام";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"خطا: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void GoBack()
+    {
+        Navigation.NavigateTo("/");
+    }
+
+    private class CreateTaskReplyModel
+    {
+        public int TaskId { get; set; }
+
+        [Required(ErrorMessage = "شرح اقدام الزامی است")]
+        [MinLength(10, ErrorMessage = "شرح اقدام باید حداقل 10 کاراکتر باشد")]
+        public string ReplyText { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "وضعیت جدید الزامی است")]
+        public int NewStatusId { get; set; } = 1;
+
+        [Range(0, 100, ErrorMessage = "درصد پیشرفت باید بین 0 تا 100 باشد")]
+        public int NewProgressPercentage { get; set; } = 0;
+    }
+}
+
+<style>
+    .page-container {
+        padding: 20px;
+        direction: rtl;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .page-header {
+        margin-bottom: 30px;
+    }
+
+    .page-header h2 {
+        color: #333;
+        font-weight: 700;
+    }
+
+    .form-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+        font-family: inherit;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+
+    .progress-input {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .progress-input .form-control {
+        flex: 1;
+        padding-left: 50px;
+    }
+
+    .percentage-label {
+        position: absolute;
+        left: 20px;
+        color: #999;
+        font-weight: 600;
+    }
+
+    .validation-message {
+        color: #dc3545;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        flex: 1;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+</style>
