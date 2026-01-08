@@ -25,6 +25,30 @@
                     <span class="icon">👥</span>
                     <span>کاربران</span>
                 </a>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">مدیریت سازمانی</div>
+                    <a href="/organization-units" class="nav-item nav-item-sub @GetActiveClass("/organization-units")">
+                        <span class="icon">🏢</span>
+                        <span>واحدهای سازمانی</span>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">تقسیمات جغرافیایی</div>
+                    <a href="/provinces" class="nav-item nav-item-sub @GetActiveClass("/provinces")">
+                        <span class="icon">🗺️</span>
+                        <span>استان‌ها</span>
+                    </a>
+                    <a href="/regions" class="nav-item nav-item-sub @GetActiveClass("/regions")">
+                        <span class="icon">📍</span>
+                        <span>مناطق</span>
+                    </a>
+                    <a href="/schools" class="nav-item nav-item-sub @GetActiveClass("/schools")">
+                        <span class="icon">🏫</span>
+                        <span>مدارس</span>
+                    </a>
+                </div>
             </nav>
 
             <div class="sidebar-footer">
@@ -138,6 +162,20 @@
     .nav-menu {
         flex: 1;
         padding: 20px 0;
+        overflow-y: auto;
+    }
+
+    .nav-section {
+        margin-top: 20px;
+    }
+
+    .nav-section-title {
+        padding: 10px 25px;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 600;
+        letter-spacing: 1px;
     }
 
     .nav-item {
@@ -149,6 +187,11 @@
         text-decoration: none;
         transition: all 0.3s ease;
         border-right: 3px solid transparent;
+    }
+
+    .nav-item-sub {
+        padding: 12px 25px 12px 40px;
+        font-size: 14px;
     }
 
     .nav-item:hover {
