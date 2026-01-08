@@ -237,6 +237,12 @@
 
             var response = await Http.PostAsJsonAsync("api/Events", model);
 
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Navigation.NavigateTo("/login", forceLoad: true);
+                return;
+            }
+
             if (response.IsSuccessStatusCode)
             {
                 Navigation.NavigateTo("/events");
@@ -246,6 +252,10 @@
                 var error = await response.Content.ReadAsStringAsync();
                 errorMessage = $"خطا در ثبت رویداد: {error}";
             }
+        }
+        catch (HttpRequestException ex) when (ex.Message.Contains("401") || ex.Message.Contains("Unauthorized"))
+        {
+            Navigation.NavigateTo("/login", forceLoad: true);
         }
         catch (Exception ex)
         {

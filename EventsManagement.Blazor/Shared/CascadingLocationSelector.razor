@@ -1,5 +1,6 @@
 @inject HttpClient Http
 @inject IAuthService AuthService
+@inject NavigationManager Navigation
 
 <div class="cascading-location">
     <div class="form-group">
@@ -327,6 +328,11 @@
             if (modalType == "Province")
             {
                 var response = await Http.PostAsJsonAsync("api/Provinces", new { name = newItemName, code = newItemCode });
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    Navigation.NavigateTo("/login", forceLoad: true);
+                    return;
+                }
                 if (response.IsSuccessStatusCode)
                 {
                     await LoadProvinces();
@@ -335,6 +341,11 @@
             else if (modalType == "Region" && selectedProvinceId.HasValue)
             {
                 var response = await Http.PostAsJsonAsync("api/Regions", new { name = newItemName, code = newItemCode, provinceId = selectedProvinceId.Value });
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    Navigation.NavigateTo("/login", forceLoad: true);
+                    return;
+                }
                 if (response.IsSuccessStatusCode)
                 {
                     await LoadRegions(selectedProvinceId.Value);
@@ -343,6 +354,11 @@
             else if (modalType == "School" && selectedRegionId.HasValue)
             {
                 var response = await Http.PostAsJsonAsync("api/Schools", new { name = newItemName, code = newItemCode, regionId = selectedRegionId.Value });
+                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    Navigation.NavigateTo("/login", forceLoad: true);
+                    return;
+                }
                 if (response.IsSuccessStatusCode)
                 {
                     await LoadSchools(selectedRegionId.Value);
@@ -350,6 +366,10 @@
             }
 
             CloseAddModal();
+        }
+        catch (HttpRequestException ex) when (ex.Message.Contains("401") || ex.Message.Contains("Unauthorized"))
+        {
+            Navigation.NavigateTo("/login", forceLoad: true);
         }
         catch { }
     }

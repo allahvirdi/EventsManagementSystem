@@ -1,6 +1,7 @@
 @using System.Linq.Expressions
 @inject HttpClient Http
 @inject IAuthService AuthService
+@inject NavigationManager Navigation
 
 <div class="dynamic-dropdown-wrapper">
     <div class="input-group">
@@ -183,6 +184,13 @@
             };
 
             var response = await Http.PostAsJsonAsync("api/DynamicTables", newItem);
+            
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Navigation.NavigateTo("/login", forceLoad: true);
+                return;
+            }
+            
             if (response.IsSuccessStatusCode)
             {
                 await LoadItems();
@@ -200,6 +208,10 @@
             {
                 errorMessage = "خطا در ذخیره‌سازی";
             }
+        }
+        catch (HttpRequestException ex) when (ex.Message.Contains("401") || ex.Message.Contains("Unauthorized"))
+        {
+            Navigation.NavigateTo("/login", forceLoad: true);
         }
         catch (Exception ex)
         {
