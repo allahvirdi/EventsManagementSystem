@@ -1,3 +1,235 @@
 ﻿@inherits LayoutComponentBase
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
 
-@Body
+<div class="app-container">
+    @if (isAuthenticated)
+    {
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>سیستم مدیریت رویدادها</h3>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="/" class="nav-item @GetActiveClass("/")">
+                    <span class="icon">📊</span>
+                    <span>داشبورد</span>
+                </a>
+                
+                <a href="/events" class="nav-item @GetActiveClass("/events")">
+                    <span class="icon">📅</span>
+                    <span>رویدادها</span>
+                </a>
+                
+                <a href="/users" class="nav-item @GetActiveClass("/users")">
+                    <span class="icon">👥</span>
+                    <span>کاربران</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <span>@userFullName</span>
+                </div>
+                <button class="btn-logout" @onclick="HandleLogout">
+                    خروج
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="content-wrapper">
+                @Body
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="login-container">
+            @Body
+        </div>
+    }
+</div>
+
+@code {
+    private bool isAuthenticated = false;
+    private string userFullName = string.Empty;
+    private string currentPath = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CheckAuthentication();
+        Navigation.LocationChanged += OnLocationChanged;
+        currentPath = Navigation.Uri;
+    }
+
+    private async Task CheckAuthentication()
+    {
+        isAuthenticated = await AuthService.IsAuthenticatedAsync();
+        if (isAuthenticated)
+        {
+            var user = await AuthService.GetUserInfoAsync();
+            userFullName = user?.FullName ?? "کاربر";
+        }
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        currentPath = e.Location;
+        StateHasChanged();
+    }
+
+    private string GetActiveClass(string path)
+    {
+        if (path == "/")
+            return Navigation.Uri.EndsWith("/") || Navigation.Uri.Contains("localhost:") && !Navigation.Uri.Contains("/events") && !Navigation.Uri.Contains("/users") && !Navigation.Uri.Contains("/login") ? "active" : "";
+        
+        return Navigation.Uri.Contains(path) ? "active" : "";
+    }
+
+    private async Task HandleLogout()
+    {
+        await AuthService.LogoutAsync();
+        Navigation.NavigateTo("/login");
+    }
+
+    public void Dispose()
+    {
+        Navigation.LocationChanged -= OnLocationChanged;
+    }
+}
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .app-container {
+        display: flex;
+        min-height: 100vh;
+        background: #f5f7fa;
+    }
+
+    .sidebar {
+        width: 280px;
+        background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        height: 100vh;
+        right: 0;
+    }
+
+    .sidebar-header {
+        padding: 30px 20px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-header h3 {
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .nav-menu {
+        flex: 1;
+        padding: 20px 0;
+    }
+
+    .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 25px;
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-right: 3px solid transparent;
+    }
+
+    .nav-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+    }
+
+    .nav-item.active {
+        background: rgba(255, 255, 255, 0.15);
+        border-right-color: white;
+        color: white;
+        font-weight: 600;
+    }
+
+    .nav-item .icon {
+        font-size: 20px;
+    }
+
+    .sidebar-footer {
+        padding: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .user-info {
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .btn-logout {
+        width: 100%;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-logout:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .main-content {
+        flex: 1;
+        margin-right: 280px;
+        overflow-y: auto;
+    }
+
+    .content-wrapper {
+        min-height: 100vh;
+    }
+
+    .login-container {
+        flex: 1;
+    }
+
+    @@media (max-width: 768px) {
+        .sidebar {
+            width: 70px;
+        }
+
+        .sidebar-header h3,
+        .nav-item span:not(.icon),
+        .user-info,
+        .btn-logout {
+            display: none;
+        }
+
+        .main-content {
+            margin-right: 70px;
+        }
+
+        .nav-item {
+            justify-content: center;
+            padding: 15px;
+        }
+    }
+</style>
