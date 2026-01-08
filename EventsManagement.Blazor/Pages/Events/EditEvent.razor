@@ -48,8 +48,7 @@
                     Placeholder="منبع رویداد را انتخاب کنید"
                     Value="@eventSourceId"
                     ValueChanged="@((int? val) => { eventSourceId = val; model.EventSourceId = val ?? 0; })"
-                    AllowAdd="true"
-                    ValidationFor="@(() => model.EventSourceId)" />
+                    AllowAdd="true" />
 
                 <DynamicDropdown 
                     TableName="EventSubject"
@@ -57,8 +56,7 @@
                     Placeholder="موضوع رویداد را انتخاب کنید"
                     Value="@eventSubjectId"
                     ValueChanged="@((int? val) => { eventSubjectId = val; model.EventSubjectId = val ?? 0; })"
-                    AllowAdd="true"
-                    ValidationFor="@(() => model.EventSubjectId)" />
+                    AllowAdd="true" />
 
                 <DynamicDropdown 
                     TableName="Urgency"
@@ -66,8 +64,7 @@
                     Placeholder="میزان فوریت را انتخاب کنید"
                     Value="@urgencyId"
                     ValueChanged="@((int? val) => { urgencyId = val; model.UrgencyId = val ?? 0; })"
-                    AllowAdd="true"
-                    ValidationFor="@(() => model.UrgencyId)" />
+                    AllowAdd="true" />
 
                 <!-- بخش ۳: محدوده وقوع -->
                 <div class="section-header">محدوده وقوع</div>
@@ -78,8 +75,7 @@
                     Placeholder="نوع محدوده را انتخاب کنید"
                     Value="@scopeId"
                     ValueChanged="@((int? val) => { scopeId = val; model.ScopeId = val ?? 0; })"
-                    AllowAdd="true"
-                    ValidationFor="@(() => model.ScopeId)" />
+                    AllowAdd="true" />
 
                 <CascadingLocationSelector 
                     @bind-ProvinceId="scopeProvinceId"
@@ -99,8 +95,7 @@
                     Placeholder="نوع محدوده تأثیر را انتخاب کنید"
                     Value="@impactScopeId"
                     ValueChanged="@((int? val) => { impactScopeId = val; model.ImpactScopeId = val ?? 0; })"
-                    AllowAdd="true"
-                    ValidationFor="@(() => model.ImpactScopeId)" />
+                    AllowAdd="true" />
 
                 <CascadingLocationSelector 
                     @bind-ProvinceId="impactProvinceId"
@@ -120,8 +115,7 @@
                     Placeholder="دامنه تأثیر را انتخاب کنید"
                     Value="@impactRangeId"
                     ValueChanged="@((int? val) => { impactRangeId = val; model.ImpactRangeId = val ?? 0; })"
-                    AllowAdd="true"
-                    ValidationFor="@(() => model.ImpactRangeId)" />
+                    AllowAdd="true" />
 
                 <!-- بخش ۶: بازه زمانی -->
                 <div class="section-header">بازه زمانی</div>
