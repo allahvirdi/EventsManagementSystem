@@ -59,7 +59,7 @@
                             {
                                 <div class="event-item">
                                     <div class="event-title">@ev.Title</div>
-                                    <div class="event-date">@ev.CreatedAt.ToString("yyyy/MM/dd")</div>
+                                    <div class="event-date">@ev.CreatedAt.ToPersianDate()</div>
                                 </div>
                             }
                         </div>
@@ -82,7 +82,7 @@
                                 <div class="activity-item">
                                     <span class="activity-type">@log.ActivityType</span>
                                     <span class="activity-desc">@log.Description</span>
-                                    <span class="activity-time">@log.ActivityDateTime.ToString("HH:mm")</span>
+                                    <span class="activity-time">@log.ActivityDateTime.ToPersianDateTime()</span>
                                 </div>
                             }
                         </div>

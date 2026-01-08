@@ -41,7 +41,7 @@
                         <tr>
                             <td>@evt.Title</td>
                             <td>@(evt.Description.Length > 50 ? evt.Description.Substring(0, 50) + "..." : evt.Description)</td>
-                            <td>@evt.CreatedAt.ToString("yyyy/MM/dd")</td>
+                            <td>@evt.CreatedAt.ToPersianDate()</td>
                             <td><span class="badge">@evt.StatusId</span></td>
                             <td>
                                 <button class="btn btn-sm btn-info" @onclick='() => Navigation.NavigateTo($"/events/{evt.Id}")'>جزئیات</button>

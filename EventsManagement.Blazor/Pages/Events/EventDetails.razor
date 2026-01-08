@@ -27,11 +27,11 @@
                 <div class="info-row">
                     <div class="info-item">
                         <strong>تاریخ شروع:</strong>
-                        <span>@eventDetails.StartDate.ToString("yyyy/MM/dd")</span>
+                        <span>@eventDetails.StartDate.ToPersianDate()</span>
                     </div>
                     <div class="info-item">
                         <strong>تاریخ پایان:</strong>
-                        <span>@eventDetails.EndDate.ToString("yyyy/MM/dd")</span>
+                        <span>@eventDetails.EndDate.ToPersianDate()</span>
                     </div>
                 </div>
                 <div class="info-row">
@@ -104,7 +104,7 @@
                             <div class="comment-item">
                                 <div class="comment-header">
                                     <strong>@comment.CreatedByName</strong>
-                                    <small>@comment.CreatedAt.ToString("yyyy/MM/dd HH:mm")</small>
+                                    <small>@comment.CreatedAt.ToPersianDateTime()</small>
                                 </div>
                                 <p>@comment.Text</p>
                             </div>

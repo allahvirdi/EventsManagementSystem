@@ -49,7 +49,7 @@
                                 </div>
                             </td>
                             <td><span class="badge status-@task.StatusId">@GetStatusText(task.StatusId)</span></td>
-                            <td>@task.DueDate.ToString("yyyy/MM/dd")</td>
+                            <td>@task.DueDate.ToPersianDate()</td>
                             <td>
                                 <button class="btn btn-sm btn-info" @onclick='() => Navigation.NavigateTo($"/tasks/{task.Id}/replies")'>شرح اقدامات</button>
                                 <button class="btn btn-sm btn-warning" @onclick='() => Navigation.NavigateTo($"/tasks/edit/{task.Id}")'>ویرایش</button>
