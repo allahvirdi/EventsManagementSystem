@@ -1,51 +1,57 @@
-@page "/events"
+@page "/schools"
 @inject HttpClient Http
 @inject IAuthService AuthService
 @inject NavigationManager Navigation
 
-<PageTitle>لیست رویدادها</PageTitle>
+<PageTitle>لیست مدارس</PageTitle>
 
 <div class="page-container">
     <div class="page-header">
-        <h2>لیست رویدادها</h2>
-        <button class="btn btn-primary" @onclick='() => Navigation.NavigateTo("/events/create")'>
-            ثبت رویداد جدید
+        <h2>مدیریت مدارس</h2>
+        <button class="btn btn-primary" @onclick='() => Navigation.NavigateTo("/schools/create")'>
+            <span>➕</span> افزودن مدرسه
         </button>
     </div>
 
-    <div class="filters">
-        <input type="text" @bind="searchTerm" @bind:event="oninput" placeholder="جستجو..." class="search-input" />
-        <button class="btn btn-secondary" @onclick="LoadEvents">جستجو</button>
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <Alert Type="danger" Message="@errorMessage" OnClose="() => errorMessage = string.Empty" />
+    }
+
+    <div class="search-bar">
+        <input type="text" placeholder="جستجو بر اساس نام..." @bind="searchTerm" @bind:event="oninput" class="search-input" />
+        <button class="btn btn-secondary" @onclick="LoadSchools">جستجو</button>
     </div>
 
     @if (isLoading)
     {
         <Loading />
     }
-    else if (events.Any())
+    else if (schools.Any())
     {
         <div class="table-container">
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th>عنوان</th>
-                        <th>توضیحات</th>
-                        <th>تاریخ</th>
-                        <th>وضعیت</th>
+                        <th>نام مدرسه</th>
+                        <th>کد</th>
+                        <th>منطقه</th>
+                        <th>استان</th>
+                        <th>آدرس</th>
                         <th>عملیات</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var evt in events)
+                    @foreach (var school in schools)
                     {
                         <tr>
-                            <td>@evt.Title</td>
-                            <td>@(evt.Description.Length > 50 ? evt.Description.Substring(0, 50) + "..." : evt.Description)</td>
-                            <td>@evt.CreatedAt.ToString("yyyy/MM/dd")</td>
-                            <td><span class="badge">@evt.StatusId</span></td>
+                            <td>@school.Name</td>
+                            <td>@school.Code</td>
+                            <td>@school.RegionName</td>
+                            <td>@school.ProvinceName</td>
+                            <td>@(school.Address?.Length > 40 ? school.Address.Substring(0, 40) + "..." : school.Address)</td>
                             <td>
-                                <button class="btn btn-sm btn-info" @onclick='() => Navigation.NavigateTo($"/events/{evt.Id}")'>جزئیات</button>
-                                <button class="btn btn-sm btn-warning" @onclick='() => Navigation.NavigateTo($"/events/edit/{evt.Id}")'>ویرایش</button>
+                                <button class="btn btn-sm btn-warning" @onclick='() => Navigation.NavigateTo($"/schools/edit/{school.Id}")'>ویرایش</button>
                             </td>
                         </tr>
                     }
@@ -58,14 +64,15 @@
     else
     {
         <div class="no-data">
-            <p>هیچ رویدادی یافت نشد</p>
+            <p>هیچ مدرسه‌ای یافت نشد</p>
         </div>
     }
 </div>
 
 @code {
-    private List<EventDto> events = new();
-    private bool isLoading = true;
+    private List<SchoolDto> schools = new();
+    private bool isLoading = false;
+    private string errorMessage = string.Empty;
     private string searchTerm = string.Empty;
     private int currentPage = 1;
     private int pageSize = 10;
@@ -73,12 +80,13 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadEvents();
+        await LoadSchools();
     }
 
-    private async Task LoadEvents()
+    private async Task LoadSchools()
     {
         isLoading = true;
+        errorMessage = string.Empty;
 
         try
         {
@@ -92,18 +100,23 @@
             Http.DefaultRequestHeaders.Authorization = 
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-            var response = await Http.GetFromJsonAsync<ApiResponse<PagedResult<EventDto>>>
-                ($"api/Events?pageNumber={currentPage}&pageSize={pageSize}&searchTerm={searchTerm}");
-
-            if (response?.IsSuccess == true && response.Data != null)
+            var url = $"api/Schools?page={currentPage}&pageSize={pageSize}";
+            if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                events = response.Data.Items;
-                totalPages = (int)Math.Ceiling((double)response.Data.TotalCount / pageSize);
+                url += $"&search={Uri.EscapeDataString(searchTerm)}";
+            }
+
+            var response = await Http.GetFromJsonAsync<PagedResult<SchoolDto>>(url);
+
+            if (response != null)
+            {
+                schools = response.Items;
+                totalPages = (int)Math.Ceiling((double)response.TotalCount / pageSize);
             }
         }
         catch (Exception ex)
         {
-            // Handle error
+            errorMessage = $"خطا در بارگذاری مدارس: {ex.Message}";
         }
         finally
         {
@@ -111,31 +124,29 @@
         }
     }
 
-    private async Task OnPageChanged(int page)
+    private async Task OnPageChanged(int newPage)
     {
-        currentPage = page;
-        await LoadEvents();
+        currentPage = newPage;
+        await LoadSchools();
     }
 
-    private class ApiResponse<T>
+    private class SchoolDto
     {
-        public bool IsSuccess { get; set; }
-        public T? Data { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public int Code { get; set; }
+        public int RegionId { get; set; }
+        public string RegionName { get; set; } = string.Empty;
+        public string ProvinceName { get; set; } = string.Empty;
+        public string? Address { get; set; }
     }
 
     private class PagedResult<T>
     {
         public List<T> Items { get; set; } = new();
         public int TotalCount { get; set; }
-    }
-
-    private class EventDto
-    {
-        public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public int StatusId { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
     }
 }
 
@@ -149,10 +160,15 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
     }
 
-    .filters {
+    .page-header h2 {
+        color: #333;
+        font-weight: 700;
+    }
+
+    .search-bar {
         display: flex;
         gap: 10px;
         margin-bottom: 20px;
@@ -160,14 +176,19 @@
 
     .search-input {
         flex: 1;
-        padding: 10px 15px;
+        padding: 12px 15px;
         border: 2px solid #e0e0e0;
         border-radius: 8px;
         font-size: 14px;
     }
 
+    .search-input:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+
     .btn {
-        padding: 10px 20px;
+        padding: 12px 30px;
         border: none;
         border-radius: 8px;
         cursor: pointer;
@@ -191,14 +212,18 @@
         color: white;
     }
 
-    .btn-info {
-        background: #17a2b8;
-        color: white;
-        padding: 6px 12px;
+    .btn-sm {
+        padding: 8px 16px;
+        font-size: 12px;
     }
 
-    .btn-sm {
-        font-size: 12px;
+    .btn-warning {
+        background: #ffc107;
+        color: #333;
+    }
+
+    .btn-warning:hover {
+        background: #e0a800;
     }
 
     .table-container {
@@ -232,24 +257,6 @@
 
     .data-table tbody tr:hover {
         background-color: #f8f9fa;
-    }
-
-    .badge {
-        padding: 4px 10px;
-        border-radius: 5px;
-        background: #667eea;
-        color: white;
-        font-size: 12px;
-    }
-
-    .btn-warning {
-        background: #ffc107;
-        color: #333;
-        margin-right: 5px;
-    }
-
-    .btn-warning:hover {
-        background: #e0a800;
     }
 
     .no-data {
