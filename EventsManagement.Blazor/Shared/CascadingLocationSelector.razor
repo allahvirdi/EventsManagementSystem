@@ -1,0 +1,344 @@
+@inject HttpClient Http
+@inject IAuthService AuthService
+
+<div class="cascading-location">
+    <div class="form-group">
+        <label>استان</label>
+        <div class="input-group">
+            <select class="form-control" @bind="selectedProvinceId" @bind:after="OnProvinceChanged">
+                <option value="">-- انتخاب استان --</option>
+                @foreach (var province in provinces)
+                {
+                    <option value="@province.Id">@province.Name</option>
+                }
+            </select>
+            @if (AllowAddProvince)
+            {
+                <button type="button" class="btn btn-success btn-sm" @onclick='() => OpenAddModal("Province")'>➕</button>
+            }
+        </div>
+    </div>
+
+    @if (selectedProvinceId.HasValue)
+    {
+        <div class="form-group">
+            <label>منطقه</label>
+            <div class="input-group">
+                <select class="form-control" @bind="selectedRegionId" @bind:after="OnRegionChanged">
+                    <option value="">-- انتخاب منطقه --</option>
+                    @foreach (var region in regions)
+                    {
+                        <option value="@region.Id">@region.Name</option>
+                    }
+                </select>
+                @if (AllowAddRegion)
+                {
+                    <button type="button" class="btn btn-success btn-sm" @onclick='() => OpenAddModal("Region")'>➕</button>
+                }
+            </div>
+        </div>
+    }
+
+    @if (selectedRegionId.HasValue && ShowSchool)
+    {
+        <div class="form-group">
+            <label>مدرسه</label>
+            <div class="input-group">
+                <select class="form-control" @bind="selectedSchoolId" @bind:after="OnSchoolChanged">
+                    <option value="">-- انتخاب مدرسه --</option>
+                    @foreach (var school in schools)
+                    {
+                        <option value="@school.Id">@school.Name</option>
+                    }
+                </select>
+                @if (AllowAddSchool)
+                {
+                    <button type="button" class="btn btn-success btn-sm" @onclick='() => OpenAddModal("School")'>➕</button>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@if (showAddModal)
+{
+    <div class="modal-backdrop show"></div>
+    <div class="modal show d-block">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>افزودن @modalTitle</h5>
+                    <button type="button" class="btn-close" @onclick="CloseAddModal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>نام</label>
+                        <input type="text" class="form-control" @bind="newItemName" />
+                    </div>
+                    <div class="form-group">
+                        <label>کد</label>
+                        <input type="number" class="form-control" @bind="newItemCode" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" @onclick="CloseAddModal">انصراف</button>
+                    <button class="btn btn-primary" @onclick="SaveNewItem">ذخیره</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int? ProvinceId { get; set; }
+
+    [Parameter]
+    public EventCallback<int?> ProvinceIdChanged { get; set; }
+
+    [Parameter]
+    public int? RegionId { get; set; }
+
+    [Parameter]
+    public EventCallback<int?> RegionIdChanged { get; set; }
+
+    [Parameter]
+    public int? SchoolId { get; set; }
+
+    [Parameter]
+    public EventCallback<int?> SchoolIdChanged { get; set; }
+
+    [Parameter]
+    public bool ShowSchool { get; set; } = true;
+
+    [Parameter]
+    public bool AllowAddProvince { get; set; } = false;
+
+    [Parameter]
+    public bool AllowAddRegion { get; set; } = false;
+
+    [Parameter]
+    public bool AllowAddSchool { get; set; } = false;
+
+    private List<LocationItem> provinces = new();
+    private List<LocationItem> regions = new();
+    private List<LocationItem> schools = new();
+
+    private int? selectedProvinceId;
+    private int? selectedRegionId;
+    private int? selectedSchoolId;
+
+    private bool showAddModal = false;
+    private string modalType = "";
+    private string modalTitle = "";
+    private string newItemName = "";
+    private int newItemCode = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadProvinces();
+        
+        if (ProvinceId.HasValue)
+        {
+            selectedProvinceId = ProvinceId;
+            await LoadRegions(ProvinceId.Value);
+        }
+        
+        if (RegionId.HasValue)
+        {
+            selectedRegionId = RegionId;
+            if (ShowSchool)
+            {
+                await LoadSchools(RegionId.Value);
+            }
+        }
+        
+        if (SchoolId.HasValue)
+        {
+            selectedSchoolId = SchoolId;
+        }
+    }
+
+    private async Task LoadProvinces()
+    {
+        try
+        {
+            var token = await AuthService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token)) return;
+
+            Http.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await Http.GetFromJsonAsync<PagedResult<LocationItem>>("api/Provinces?pageSize=1000");
+            if (response != null)
+            {
+                provinces = response.Items;
+            }
+        }
+        catch { }
+    }
+
+    private async Task LoadRegions(int provinceId)
+    {
+        try
+        {
+            var token = await AuthService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token)) return;
+
+            Http.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await Http.GetFromJsonAsync<PagedResult<LocationItem>>($"api/Regions?provinceId={provinceId}&pageSize=1000");
+            if (response != null)
+            {
+                regions = response.Items;
+            }
+        }
+        catch { }
+    }
+
+    private async Task LoadSchools(int regionId)
+    {
+        try
+        {
+            var token = await AuthService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token)) return;
+
+            Http.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await Http.GetFromJsonAsync<PagedResult<LocationItem>>($"api/Schools?regionId={regionId}&pageSize=1000");
+            if (response != null)
+            {
+                schools = response.Items;
+            }
+        }
+        catch { }
+    }
+
+    private async Task OnProvinceChanged()
+    {
+        await ProvinceIdChanged.InvokeAsync(selectedProvinceId);
+        
+        selectedRegionId = null;
+        selectedSchoolId = null;
+        regions.Clear();
+        schools.Clear();
+        
+        await RegionIdChanged.InvokeAsync(null);
+        await SchoolIdChanged.InvokeAsync(null);
+        
+        if (selectedProvinceId.HasValue)
+        {
+            await LoadRegions(selectedProvinceId.Value);
+        }
+    }
+
+    private async Task OnRegionChanged()
+    {
+        await RegionIdChanged.InvokeAsync(selectedRegionId);
+        
+        selectedSchoolId = null;
+        schools.Clear();
+        
+        await SchoolIdChanged.InvokeAsync(null);
+        
+        if (selectedRegionId.HasValue && ShowSchool)
+        {
+            await LoadSchools(selectedRegionId.Value);
+        }
+    }
+
+    private async Task OnSchoolChanged()
+    {
+        await SchoolIdChanged.InvokeAsync(selectedSchoolId);
+    }
+
+    private void OpenAddModal(string type)
+    {
+        modalType = type;
+        modalTitle = type switch
+        {
+            "Province" => "استان",
+            "Region" => "منطقه",
+            "School" => "مدرسه",
+            _ => ""
+        };
+        newItemName = "";
+        newItemCode = 0;
+        showAddModal = true;
+    }
+
+    private void CloseAddModal()
+    {
+        showAddModal = false;
+    }
+
+    private async Task SaveNewItem()
+    {
+        if (string.IsNullOrWhiteSpace(newItemName)) return;
+
+        try
+        {
+            var token = await AuthService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token)) return;
+
+            Http.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            if (modalType == "Province")
+            {
+                var response = await Http.PostAsJsonAsync("api/Provinces", new { name = newItemName, code = newItemCode });
+                if (response.IsSuccessStatusCode)
+                {
+                    await LoadProvinces();
+                }
+            }
+            else if (modalType == "Region" && selectedProvinceId.HasValue)
+            {
+                var response = await Http.PostAsJsonAsync("api/Regions", new { name = newItemName, code = newItemCode, provinceId = selectedProvinceId.Value });
+                if (response.IsSuccessStatusCode)
+                {
+                    await LoadRegions(selectedProvinceId.Value);
+                }
+            }
+            else if (modalType == "School" && selectedRegionId.HasValue)
+            {
+                var response = await Http.PostAsJsonAsync("api/Schools", new { name = newItemName, code = newItemCode, regionId = selectedRegionId.Value });
+                if (response.IsSuccessStatusCode)
+                {
+                    await LoadSchools(selectedRegionId.Value);
+                }
+            }
+
+            CloseAddModal();
+        }
+        catch { }
+    }
+
+    private class LocationItem
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+    }
+
+    private class PagedResult<T>
+    {
+        public List<T> Items { get; set; } = new();
+    }
+}
+
+<style>
+    .cascading-location .form-group {
+        margin-bottom: 15px;
+    }
+
+    .input-group {
+        display: flex;
+        gap: 8px;
+    }
+
+    .input-group select {
+        flex: 1;
+    }
+</style>

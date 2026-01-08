@@ -140,6 +140,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEFsZXJ0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/CascadingLocationSelector.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENhc2NhZGluZ0xvY2F0aW9uU2VsZWN0b3IucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/DynamicDropdown.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXER5bmFtaWNEcm9wZG93bi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/FileUploader.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEZpbGVVcGxvYWRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/Loading.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXExvYWRpbmcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -154,6 +166,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/PersianDatePicker.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFBlcnNpYW5EYXRlUGlja2VyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/RelatedEventsSelector.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFJlbGF0ZWRFdmVudHNTZWxlY3Rvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/_Imports.razor]

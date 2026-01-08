@@ -1,0 +1,306 @@
+@inject HttpClient Http
+@inject IAuthService AuthService
+
+<div class="related-events-selector">
+    <label class="form-label">@Title</label>
+    
+    <div class="search-box">
+        <input type="text" 
+               class="form-control" 
+               placeholder="جستجو بر اساس عنوان یا موضوع..."
+               @bind="searchTerm"
+               @bind:event="oninput"
+               @onkeyup="HandleSearch" />
+        <span class="search-icon">🔍</span>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="text-center mt-3">
+            <Loading />
+        </div>
+    }
+
+    @if (showResults && filteredEvents.Any())
+    {
+        <div class="search-results">
+            @foreach (var evt in filteredEvents)
+            {
+                var isSelected = SelectedEventIds.Contains(evt.Id);
+                <div class="event-result-item @(isSelected ? "selected" : "")" 
+                     @onclick="() => ToggleEventSelection(evt.Id)">
+                    <div class="event-info">
+                        <strong>@evt.Title</strong>
+                        <small>موضوع: @evt.Subject</small>
+                        <small>تاریخ: @evt.StartDate.ToPersianDate()</small>
+                    </div>
+                    @if (isSelected)
+                    {
+                        <span class="check-icon">✓</span>
+                    }
+                </div>
+            }
+        </div>
+    }
+
+    @if (selectedEvents.Any())
+    {
+        <div class="selected-events">
+            <h6>رویدادهای انتخاب شده:</h6>
+            <div class="tags-container">
+                @foreach (var evt in selectedEvents)
+                {
+                    <div class="event-tag">
+                        <span>@evt.Title</span>
+                        <button type="button" 
+                                class="btn-remove" 
+                                @onclick="() => RemoveEvent(evt.Id)">
+                            ×
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = "رویدادهای مرتبط";
+
+    [Parameter]
+    public List<int> SelectedEventIds { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<List<int>> SelectedEventIdsChanged { get; set; }
+
+    [Parameter]
+    public int? ExcludeEventId { get; set; } // برای Edit، که خودش رو نشون نده
+
+    private List<EventItem> allEvents = new();
+    private List<EventItem> filteredEvents = new();
+    private List<EventItem> selectedEvents = new();
+    private string searchTerm = string.Empty;
+    private bool isLoading = false;
+    private bool showResults = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadEvents();
+        UpdateSelectedEvents();
+    }
+
+    private async Task LoadEvents()
+    {
+        try
+        {
+            isLoading = true;
+            var token = await AuthService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token)) return;
+
+            Http.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await Http.GetAsync("api/Events?pageSize=1000");
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<PagedResult<EventItem>>();
+                if (result != null)
+                {
+                    allEvents = result.Items
+                        .Where(e => !ExcludeEventId.HasValue || e.Id != ExcludeEventId.Value)
+                        .ToList();
+                }
+            }
+        }
+        catch { }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void HandleSearch()
+    {
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            showResults = false;
+            filteredEvents.Clear();
+            return;
+        }
+
+        var term = searchTerm.Trim().ToLower();
+        filteredEvents = allEvents
+            .Where(e => e.Title.ToLower().Contains(term) || 
+                       (e.Subject != null && e.Subject.ToLower().Contains(term)))
+            .Take(10)
+            .ToList();
+
+        showResults = true;
+    }
+
+    private async Task ToggleEventSelection(int eventId)
+    {
+        if (SelectedEventIds.Contains(eventId))
+        {
+            SelectedEventIds.Remove(eventId);
+        }
+        else
+        {
+            SelectedEventIds.Add(eventId);
+        }
+
+        UpdateSelectedEvents();
+        await SelectedEventIdsChanged.InvokeAsync(SelectedEventIds);
+    }
+
+    private async Task RemoveEvent(int eventId)
+    {
+        SelectedEventIds.Remove(eventId);
+        UpdateSelectedEvents();
+        await SelectedEventIdsChanged.InvokeAsync(SelectedEventIds);
+    }
+
+    private void UpdateSelectedEvents()
+    {
+        selectedEvents = allEvents
+            .Where(e => SelectedEventIds.Contains(e.Id))
+            .ToList();
+    }
+
+    private class EventItem
+    {
+        public int Id { get; set; }
+        public string Title { get; set; } = string.Empty;
+        public string? Subject { get; set; }
+        public DateTime StartDate { get; set; }
+    }
+
+    private class PagedResult<T>
+    {
+        public List<T> Items { get; set; } = new();
+        public int TotalCount { get; set; }
+    }
+}
+
+<style>
+    .related-events-selector {
+        margin: 20px 0;
+    }
+
+    .search-box {
+        position: relative;
+        margin-bottom: 10px;
+    }
+
+    .search-box input {
+        padding-right: 40px;
+    }
+
+    .search-icon {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #666;
+    }
+
+    .search-results {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        max-height: 300px;
+        overflow-y: auto;
+        background: white;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .event-result-item {
+        padding: 12px;
+        border-bottom: 1px solid #f0f0f0;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background 0.2s;
+    }
+
+    .event-result-item:hover {
+        background: #f8f9ff;
+    }
+
+    .event-result-item.selected {
+        background: #e8f0ff;
+    }
+
+    .event-result-item:last-child {
+        border-bottom: none;
+    }
+
+    .event-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .event-info strong {
+        color: #333;
+    }
+
+    .event-info small {
+        color: #666;
+        font-size: 12px;
+    }
+
+    .check-icon {
+        color: #4caf50;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .selected-events {
+        margin-top: 20px;
+    }
+
+    .selected-events h6 {
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .event-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 20px;
+        font-size: 14px;
+    }
+
+    .event-tag .btn-remove {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background 0.2s;
+    }
+
+    .event-tag .btn-remove:hover {
+        background: rgba(255,255,255,0.2);
+    }
+</style>

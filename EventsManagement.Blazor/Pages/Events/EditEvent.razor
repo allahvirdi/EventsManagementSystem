@@ -25,8 +25,11 @@
             <EditForm Model="@model" OnValidSubmit="HandleSubmit">
                 <DataAnnotationsValidator />
 
+                <!-- بخش ۱: اطلاعات اولیه -->
+                <div class="section-header">اطلاعات اولیه</div>
+                
                 <div class="form-group">
-                    <label>عنوان رویداد</label>
+                    <label>عنوان رویداد *</label>
                     <InputText @bind-Value="model.Title" class="form-control" placeholder="عنوان رویداد را وارد کنید" />
                     <ValidationMessage For="@(() => model.Title)" />
                 </div>
@@ -34,42 +37,132 @@
                 <div class="form-group">
                     <label>توضیحات</label>
                     <InputTextArea @bind-Value="model.Description" class="form-control" rows="4" placeholder="توضیحات رویداد را وارد کنید" />
-                    <ValidationMessage For="@(() => model.Description)" />
                 </div>
+
+                <!-- بخش ۲: طبقه‌بندی رویداد -->
+                <div class="section-header">طبقه‌بندی رویداد</div>
+
+                <DynamicDropdown 
+                    TableName="EventSource"
+                    Title="منبع رویداد *"
+                    Placeholder="منبع رویداد را انتخاب کنید"
+                    @bind-Value="model.EventSourceId"
+                    AllowAdd="true"
+                    ValidationFor="@(() => model.EventSourceId)" />
+
+                <DynamicDropdown 
+                    TableName="EventSubject"
+                    Title="موضوع رویداد *"
+                    Placeholder="موضوع رویداد را انتخاب کنید"
+                    @bind-Value="model.EventSubjectId"
+                    AllowAdd="true"
+                    ValidationFor="@(() => model.EventSubjectId)" />
+
+                <DynamicDropdown 
+                    TableName="Urgency"
+                    Title="فوریت *"
+                    Placeholder="میزان فوریت را انتخاب کنید"
+                    @bind-Value="model.UrgencyId"
+                    AllowAdd="true"
+                    ValidationFor="@(() => model.UrgencyId)" />
+
+                <!-- بخش ۳: محدوده وقوع -->
+                <div class="section-header">محدوده وقوع</div>
+
+                <DynamicDropdown 
+                    TableName="ScopeType"
+                    Title="نوع محدوده *"
+                    Placeholder="نوع محدوده را انتخاب کنید"
+                    @bind-Value="model.ScopeId"
+                    AllowAdd="true"
+                    ValidationFor="@(() => model.ScopeId)" />
+
+                <CascadingLocationSelector 
+                    @bind-ProvinceId="scopeProvinceId"
+                    @bind-RegionId="scopeRegionId"
+                    @bind-SchoolId="scopeSchoolId"
+                    ShowSchool="true"
+                    AllowAddProvince="true"
+                    AllowAddRegion="true"
+                    AllowAddSchool="true" />
+
+                <!-- بخش ۴: محدوده تأثیر -->
+                <div class="section-header">محدوده تأثیر</div>
+
+                <DynamicDropdown 
+                    TableName="ImpactScopeType"
+                    Title="نوع محدوده تأثیر *"
+                    Placeholder="نوع محدوده تأثیر را انتخاب کنید"
+                    @bind-Value="model.ImpactScopeId"
+                    AllowAdd="true"
+                    ValidationFor="@(() => model.ImpactScopeId)" />
+
+                <CascadingLocationSelector 
+                    @bind-ProvinceId="impactProvinceId"
+                    @bind-RegionId="impactRegionId"
+                    @bind-SchoolId="impactSchoolId"
+                    ShowSchool="true"
+                    AllowAddProvince="true"
+                    AllowAddRegion="true"
+                    AllowAddSchool="true" />
+
+                <!-- بخش ۵: دامنه تأثیر -->
+                <div class="section-header">دامنه تأثیر</div>
+
+                <DynamicDropdown 
+                    TableName="ImpactRange"
+                    Title="دامنه تأثیر (درون/برون دستگاهی) *"
+                    Placeholder="دامنه تأثیر را انتخاب کنید"
+                    @bind-Value="model.ImpactRangeId"
+                    AllowAdd="true"
+                    ValidationFor="@(() => model.ImpactRangeId)" />
+
+                <!-- بخش ۶: بازه زمانی -->
+                <div class="section-header">بازه زمانی</div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label>تاریخ شروع</label>
+                        <label>تاریخ شروع *</label>
                         <PersianDatePicker @bind-Value="model.StartDate" />
                         <ValidationMessage For="@(() => model.StartDate)" />
                     </div>
 
                     <div class="form-group">
-                        <label>تاریخ پایان</label>
+                        <label>تاریخ پایان *</label>
                         <PersianDatePicker @bind-Value="model.EndDate" />
                         <ValidationMessage For="@(() => model.EndDate)" />
                     </div>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>وضعیت</label>
-                        <InputNumber @bind-Value="model.StatusId" class="form-control" />
-                        <ValidationMessage For="@(() => model.StatusId)" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>شدت</label>
-                        <InputNumber @bind-Value="model.SeverityId" class="form-control" />
-                        <ValidationMessage For="@(() => model.SeverityId)" />
-                    </div>
-                </div>
+                <!-- بخش ۷: واحد اقدام کننده -->
+                <div class="section-header">واحد اقدام کننده</div>
 
                 <div class="form-group">
-                    <label>واحد سازمانی</label>
-                    <InputNumber @bind-Value="model.OrganizationUnitId" class="form-control" />
-                    <ValidationMessage For="@(() => model.OrganizationUnitId)" />
+                    <label>واحد مسئول *</label>
+                    <select @bind="model.ResponsibleUnitId" class="form-control">
+                        <option value="0">واحد سازمانی را انتخاب کنید</option>
+                        @foreach (var unit in organizationUnits)
+                        {
+                            <option value="@unit.Id">@unit.Name</option>
+                        }
+                    </select>
+                    <ValidationMessage For="@(() => model.ResponsibleUnitId)" />
                 </div>
+
+                <!-- بخش ۸: مستندات -->
+                <div class="section-header">مستندات</div>
+
+                <FileUploader 
+                    EntityId="@Id"
+                    EntityType="Event"
+                    @bind-UploadedFiles="uploadedFiles" />
+
+                <!-- بخش ۹: رویدادهای مرتبط -->
+                <div class="section-header">رویدادهای مرتبط</div>
+
+                <RelatedEventsSelector 
+                    ExcludeEventId="@Id"
+                    @bind-SelectedEventIds="relatedEventIds" />
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
@@ -88,9 +181,50 @@
     private bool isLoading = false;
     private string errorMessage = string.Empty;
 
+    // محدوده وقوع
+    private int? scopeProvinceId;
+    private int? scopeRegionId;
+    private int? scopeSchoolId;
+
+    // محدوده تأثیر
+    private int? impactProvinceId;
+    private int? impactRegionId;
+    private int? impactSchoolId;
+
+    // فایل‌ها و رویدادهای مرتبط
+    private List<FileUploader.UploadedFile> uploadedFiles = new();
+    private List<int> relatedEventIds = new();
+
+    // لیست واحدهای سازمانی
+    private List<OrganizationUnitItem> organizationUnits = new();
+
     protected override async Task OnInitializedAsync()
     {
+        await LoadOrganizationUnits();
         await LoadEvent();
+    }
+
+    private async Task LoadOrganizationUnits()
+    {
+        try
+        {
+            var token = await AuthService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token)) return;
+
+            Http.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await Http.GetAsync("api/OrganizationUnits?pageSize=1000");
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<PagedResult<OrganizationUnitItem>>();
+                if (result != null)
+                {
+                    organizationUnits = result.Items;
+                }
+            }
+        }
+        catch { }
     }
 
     private async Task LoadEvent()
@@ -118,12 +252,47 @@
                 {
                     Title = response.Title,
                     Description = response.Description,
+                    EventSourceId = response.EventSourceId,
+                    EventSubjectId = response.EventSubjectId,
+                    UrgencyId = response.UrgencyId,
+                    ScopeId = response.ScopeId,
+                    ImpactScopeId = response.ImpactScopeId,
+                    ImpactRangeId = response.ImpactRangeId,
                     StartDate = response.StartDate,
                     EndDate = response.EndDate,
-                    StatusId = response.StatusId,
-                    SeverityId = response.SeverityId,
-                    OrganizationUnitId = response.OrganizationUnitId
+                    ResponsibleUnitId = response.ResponsibleUnitId
                 };
+
+                // Parse location data from JSON
+                if (!string.IsNullOrEmpty(response.ScopeDetails))
+                {
+                    try
+                    {
+                        var scopeData = System.Text.Json.JsonSerializer.Deserialize<LocationDetails>(response.ScopeDetails);
+                        if (scopeData != null)
+                        {
+                            scopeProvinceId = scopeData.ProvinceId;
+                            scopeRegionId = scopeData.RegionId;
+                            scopeSchoolId = scopeData.SchoolId;
+                        }
+                    }
+                    catch { }
+                }
+
+                if (!string.IsNullOrEmpty(response.ImpactScopeDetails))
+                {
+                    try
+                    {
+                        var impactData = System.Text.Json.JsonSerializer.Deserialize<LocationDetails>(response.ImpactScopeDetails);
+                        if (impactData != null)
+                        {
+                            impactProvinceId = impactData.ProvinceId;
+                            impactRegionId = impactData.RegionId;
+                            impactSchoolId = impactData.SchoolId;
+                        }
+                    }
+                    catch { }
+                }
             }
         }
         catch (Exception ex)
@@ -153,6 +322,21 @@
             Http.DefaultRequestHeaders.Authorization = 
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
+            // تبدیل اطلاعات مکان به JSON
+            model!.ScopeDetails = System.Text.Json.JsonSerializer.Serialize(new
+            {
+                ProvinceId = scopeProvinceId,
+                RegionId = scopeRegionId,
+                SchoolId = scopeSchoolId
+            });
+
+            model.ImpactScopeDetails = System.Text.Json.JsonSerializer.Serialize(new
+            {
+                ProvinceId = impactProvinceId,
+                RegionId = impactRegionId,
+                SchoolId = impactSchoolId
+            });
+
             var response = await Http.PutAsJsonAsync($"api/Events/{Id}", model);
 
             if (response.IsSuccessStatusCode)
@@ -161,7 +345,8 @@
             }
             else
             {
-                errorMessage = "خطا در ویرایش رویداد";
+                var error = await response.Content.ReadAsStringAsync();
+                errorMessage = $"خطا در ویرایش رویداد: {error}";
             }
         }
         catch (Exception ex)
@@ -179,8 +364,35 @@
         [Required(ErrorMessage = "عنوان الزامی است")]
         public string Title { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "توضیحات الزامی است")]
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
+
+        [Required(ErrorMessage = "منبع رویداد الزامی است")]
+        [Range(1, int.MaxValue, ErrorMessage = "منبع رویداد را انتخاب کنید")]
+        public int EventSourceId { get; set; }
+
+        [Required(ErrorMessage = "موضوع رویداد الزامی است")]
+        [Range(1, int.MaxValue, ErrorMessage = "موضوع رویداد را انتخاب کنید")]
+        public int EventSubjectId { get; set; }
+
+        [Required(ErrorMessage = "فوریت الزامی است")]
+        [Range(1, int.MaxValue, ErrorMessage = "فوریت را انتخاب کنید")]
+        public int UrgencyId { get; set; }
+
+        [Required(ErrorMessage = "محدوده وقوع الزامی است")]
+        [Range(1, int.MaxValue, ErrorMessage = "محدوده وقوع را انتخاب کنید")]
+        public int ScopeId { get; set; }
+
+        public string? ScopeDetails { get; set; }
+
+        [Required(ErrorMessage = "محدوده تأثیر الزامی است")]
+        [Range(1, int.MaxValue, ErrorMessage = "محدوده تأثیر را انتخاب کنید")]
+        public int ImpactScopeId { get; set; }
+
+        public string? ImpactScopeDetails { get; set; }
+
+        [Required(ErrorMessage = "دامنه تأثیر الزامی است")]
+        [Range(1, int.MaxValue, ErrorMessage = "دامنه تأثیر را انتخاب کنید")]
+        public int ImpactRangeId { get; set; }
 
         [Required(ErrorMessage = "تاریخ شروع الزامی است")]
         public DateTime StartDate { get; set; }
@@ -188,26 +400,46 @@
         [Required(ErrorMessage = "تاریخ پایان الزامی است")]
         public DateTime EndDate { get; set; }
 
-        [Required(ErrorMessage = "وضعیت الزامی است")]
-        public int StatusId { get; set; }
-
-        [Required(ErrorMessage = "شدت الزامی است")]
-        public int SeverityId { get; set; }
-
-        [Required(ErrorMessage = "واحد سازمانی الزامی است")]
-        public int OrganizationUnitId { get; set; }
+        [Required(ErrorMessage = "واحد مسئول الزامی است")]
+        [Range(1, int.MaxValue, ErrorMessage = "واحد مسئول را انتخاب کنید")]
+        public int ResponsibleUnitId { get; set; }
     }
 
     private class EventDto
     {
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; }
+        public int EventSourceId { get; set; }
+        public int EventSubjectId { get; set; }
+        public int UrgencyId { get; set; }
+        public int ScopeId { get; set; }
+        public string? ScopeDetails { get; set; }
+        public int ImpactScopeId { get; set; }
+        public string? ImpactScopeDetails { get; set; }
+        public int ImpactRangeId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public int StatusId { get; set; }
-        public int SeverityId { get; set; }
-        public int OrganizationUnitId { get; set; }
+        public int ResponsibleUnitId { get; set; }
+    }
+
+    private class LocationDetails
+    {
+        public int? ProvinceId { get; set; }
+        public int? RegionId { get; set; }
+        public int? SchoolId { get; set; }
+    }
+
+    private class OrganizationUnitItem
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+    }
+
+    private class PagedResult<T>
+    {
+        public List<T> Items { get; set; } = new();
+        public int TotalCount { get; set; }
     }
 }
 
@@ -270,6 +502,15 @@
         color: #dc3545;
         font-size: 12px;
         margin-top: 5px;
+    }
+
+    .section-header {
+        font-size: 18px;
+        font-weight: 700;
+        color: #667eea;
+        margin: 30px 0 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #e0e0e0;
     }
 
     .form-actions {

@@ -1,0 +1,307 @@
+@inject HttpClient Http
+@inject IAuthService AuthService
+@inject IJSRuntime JS
+
+<div class="file-uploader">
+    <div class="upload-area" @ondrop="HandleDrop" @ondragover:preventDefault @ondragenter:preventDefault>
+        <InputFile OnChange="HandleFileSelection" multiple accept="@AcceptedTypes" id="fileInput" style="display:none" />
+        <label for="fileInput" class="upload-label">
+            <div class="upload-icon">📎</div>
+            <div class="upload-text">
+                <p>فایل‌ها را اینجا رها کنید یا کلیک کنید</p>
+                <small>پشتیبانی از تصویر، ویدیو، PDF و فایل صوتی</small>
+            </div>
+        </label>
+    </div>
+
+    @if (uploadedFiles.Any())
+    {
+        <div class="files-list">
+            <h6>فایل‌های بارگذاری شده:</h6>
+            @foreach (var file in uploadedFiles)
+            {
+                <div class="file-item">
+                    <span class="file-icon">@GetFileIcon(file.FileName)</span>
+                    <span class="file-name">@file.FileName</span>
+                    <span class="file-size">(@FormatFileSize(file.FileSize))</span>
+                    <button type="button" class="btn btn-sm btn-danger" @onclick="() => RemoveFile(file.Id)">
+                        ❌
+                    </button>
+                </div>
+            }
+        </div>
+    }
+
+    @if (isUploading)
+    {
+        <div class="upload-progress">
+            <div class="progress">
+                <div class="progress-bar" style="width: @uploadProgress%">@uploadProgress%</div>
+            </div>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <Alert Type="danger" Message="@errorMessage" OnClose="() => errorMessage = string.Empty" />
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int? EntityId { get; set; }
+
+    [Parameter]
+    public string EntityType { get; set; } = "Event";
+
+    [Parameter]
+    public List<UploadedFile> UploadedFiles { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<List<UploadedFile>> UploadedFilesChanged { get; set; }
+
+    private List<UploadedFile> uploadedFiles = new();
+    private bool isUploading = false;
+    private int uploadProgress = 0;
+    private string errorMessage = string.Empty;
+
+    private string AcceptedTypes => "image/*,video/*,.pdf,audio/*";
+
+    protected override void OnParametersSet()
+    {
+        uploadedFiles = UploadedFiles ?? new();
+    }
+
+    private async Task HandleFileSelection(InputFileChangeEventArgs e)
+    {
+        await UploadFiles(e.GetMultipleFiles(10));
+    }
+
+    private async Task HandleDrop(DragEventArgs e)
+    {
+        // Note: Blazor doesn't support drag & drop files directly yet
+        // This is a placeholder for future enhancement
+    }
+
+    private async Task UploadFiles(IReadOnlyList<IBrowserFile> files)
+    {
+        if (files.Count == 0) return;
+
+        isUploading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            var token = await AuthService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token)) return;
+
+            Http.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            foreach (var file in files)
+            {
+                var maxSize = 50 * 1024 * 1024; // 50MB
+                if (file.Size > maxSize)
+                {
+                    errorMessage = $"فایل {file.Name} بیش از 50 مگابایت است";
+                    continue;
+                }
+
+                using var content = new MultipartFormDataContent();
+                var fileContent = new StreamContent(file.OpenReadStream(maxSize));
+                fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+                
+                content.Add(fileContent, "file", file.Name);
+                if (EntityId.HasValue)
+                {
+                    content.Add(new StringContent(EntityId.Value.ToString()), "entityId");
+                }
+                content.Add(new StringContent(EntityType), "entityType");
+
+                var response = await Http.PostAsync("api/Files/Upload", content);
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadFromJsonAsync<FileUploadResult>();
+                    if (result != null)
+                    {
+                        uploadedFiles.Add(new UploadedFile
+                        {
+                            Id = result.FileId,
+                            FileName = file.Name,
+                            FileSize = file.Size,
+                            FilePath = result.FilePath
+                        });
+                    }
+                }
+
+                uploadProgress = (int)((files.ToList().IndexOf(file) + 1) * 100.0 / files.Count);
+                StateHasChanged();
+            }
+
+            await UploadedFilesChanged.InvokeAsync(uploadedFiles);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"خطا در بارگذاری: {ex.Message}";
+        }
+        finally
+        {
+            isUploading = false;
+            uploadProgress = 0;
+        }
+    }
+
+    private async Task RemoveFile(int fileId)
+    {
+        try
+        {
+            var token = await AuthService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token)) return;
+
+            Http.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await Http.DeleteAsync($"api/Files/{fileId}");
+            if (response.IsSuccessStatusCode)
+            {
+                uploadedFiles.RemoveAll(f => f.Id == fileId);
+                await UploadedFilesChanged.InvokeAsync(uploadedFiles);
+            }
+        }
+        catch { }
+    }
+
+    private string GetFileIcon(string fileName)
+    {
+        var ext = Path.GetExtension(fileName).ToLower();
+        return ext switch
+        {
+            ".jpg" or ".jpeg" or ".png" or ".gif" => "🖼️",
+            ".mp4" or ".avi" or ".mov" => "🎥",
+            ".pdf" => "📄",
+            ".mp3" or ".wav" => "🎵",
+            _ => "📎"
+        };
+    }
+
+    private string FormatFileSize(long bytes)
+    {
+        if (bytes < 1024) return $"{bytes} B";
+        if (bytes < 1024 * 1024) return $"{bytes / 1024} KB";
+        return $"{bytes / (1024 * 1024)} MB";
+    }
+
+    public class UploadedFile
+    {
+        public int Id { get; set; }
+        public string FileName { get; set; } = string.Empty;
+        public long FileSize { get; set; }
+        public string FilePath { get; set; } = string.Empty;
+    }
+
+    private class FileUploadResult
+    {
+        public int FileId { get; set; }
+        public string FilePath { get; set; } = string.Empty;
+    }
+}
+
+<style>
+    .file-uploader {
+        margin: 20px 0;
+    }
+
+    .upload-area {
+        border: 2px dashed #667eea;
+        border-radius: 12px;
+        padding: 40px 20px;
+        text-align: center;
+        background: #f8f9ff;
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+
+    .upload-area:hover {
+        background: #f0f2ff;
+        border-color: #764ba2;
+    }
+
+    .upload-label {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .upload-icon {
+        font-size: 48px;
+    }
+
+    .upload-text p {
+        margin: 0;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .upload-text small {
+        color: #666;
+    }
+
+    .files-list {
+        margin-top: 20px;
+    }
+
+    .files-list h6 {
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .file-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px;
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        margin-bottom: 8px;
+    }
+
+    .file-icon {
+        font-size: 24px;
+    }
+
+    .file-name {
+        flex: 1;
+        font-weight: 500;
+    }
+
+    .file-size {
+        color: #666;
+        font-size: 12px;
+    }
+
+    .upload-progress {
+        margin-top: 15px;
+    }
+
+    .progress {
+        height: 30px;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #e0e0e0;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        transition: width 0.3s;
+    }
+</style>
