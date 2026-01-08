@@ -1,6 +1,7 @@
 @using System.Linq.Expressions
 @inject HttpClient Http
 @inject IAuthService AuthService
+@inject NavigationManager Navigation
 
 <div class="dynamic-dropdown-wrapper">
     <div class="input-group">
@@ -120,18 +121,32 @@
         try
         {
             var token = await AuthService.GetTokenAsync();
-            if (string.IsNullOrEmpty(token)) return;
+            if (string.IsNullOrEmpty(token))
+            {
+                Console.WriteLine($"DynamicDropdown ({TableName}): No token found");
+                return;
+            }
 
             Http.DefaultRequestHeaders.Authorization = 
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-            var response = await Http.GetFromJsonAsync<List<DynamicItemDto>>($"api/DynamicTables/ByTable/{TableName}");
-            if (response != null)
+            Console.WriteLine($"DynamicDropdown: Loading items for table {TableName}");
+            var apiResponse = await Http.GetFromJsonAsync<ApiResult<List<DynamicItemDto>>>($"api/DynamicTables/ByTable/{TableName}");
+            
+            if (apiResponse != null && apiResponse.IsSuccess && apiResponse.Data != null)
             {
-                items = response;
+                items = apiResponse.Data;
+                Console.WriteLine($"DynamicDropdown ({TableName}): Loaded {items.Count} items");
+            }
+            else
+            {
+                Console.WriteLine($"DynamicDropdown ({TableName}): API returned no data or failed");
             }
         }
-        catch { }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"DynamicDropdown ({TableName}): Error loading items: {ex.Message}");
+        }
     }
 
     private async Task OnValueChanged()
@@ -183,6 +198,13 @@
             };
 
             var response = await Http.PostAsJsonAsync("api/DynamicTables", newItem);
+            
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                Navigation.NavigateTo("/login", forceLoad: true);
+                return;
+            }
+            
             if (response.IsSuccessStatusCode)
             {
                 await LoadItems();
@@ -201,6 +223,10 @@
                 errorMessage = "خطا در ذخیره‌سازی";
             }
         }
+        catch (HttpRequestException ex) when (ex.Message.Contains("401") || ex.Message.Contains("Unauthorized"))
+        {
+            Navigation.NavigateTo("/login", forceLoad: true);
+        }
         catch (Exception ex)
         {
             errorMessage = $"خطا: {ex.Message}";
@@ -216,6 +242,13 @@
         public int Id { get; set; }
         public string Value { get; set; } = string.Empty;
         public string Code { get; set; } = string.Empty;
+    }
+
+    private class ApiResult<T>
+    {
+        public bool IsSuccess { get; set; }
+        public string Message { get; set; } = string.Empty;
+        public T? Data { get; set; }
     }
 }
 
