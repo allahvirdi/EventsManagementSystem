@@ -13,165 +13,165 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = browser
 build_property.RootNamespace = EventsManagement.Blazor
 build_property.RootNamespace = EventsManagement.Blazor
-build_property.ProjectDir = C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\
+build_property.ProjectDir = C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = false
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor
+build_property.MSBuildProjectDirectory = C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Blazor
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/App.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Layout/MainLayout.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Layout/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Dashboard.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Dashboard.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Events/CreateEvent.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Events/CreateEvent.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRzXENyZWF0ZUV2ZW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Events/EditEvent.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Events/EditEvent.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRzXEVkaXRFdmVudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Events/EventDetails.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Events/EventDetails.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRzXEV2ZW50RGV0YWlscy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Events/EventsList.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Events/EventsList.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRzXEV2ZW50c0xpc3QucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Login.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Login.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/OrganizationUnits/CreateOrganizationUnit.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/OrganizationUnits/CreateOrganizationUnit.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JnYW5pemF0aW9uVW5pdHNcQ3JlYXRlT3JnYW5pemF0aW9uVW5pdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/OrganizationUnits/EditOrganizationUnit.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/OrganizationUnits/EditOrganizationUnit.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JnYW5pemF0aW9uVW5pdHNcRWRpdE9yZ2FuaXphdGlvblVuaXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/OrganizationUnits/OrganizationUnitsList.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/OrganizationUnits/OrganizationUnitsList.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JnYW5pemF0aW9uVW5pdHNcT3JnYW5pemF0aW9uVW5pdHNMaXN0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Provinces/CreateProvince.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Provinces/CreateProvince.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvdmluY2VzXENyZWF0ZVByb3ZpbmNlLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Provinces/EditProvince.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Provinces/EditProvince.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvdmluY2VzXEVkaXRQcm92aW5jZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Provinces/ProvincesList.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Provinces/ProvincesList.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvdmluY2VzXFByb3ZpbmNlc0xpc3QucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Regions/CreateRegion.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Regions/CreateRegion.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaW9uc1xDcmVhdGVSZWdpb24ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Regions/EditRegion.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Regions/EditRegion.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaW9uc1xFZGl0UmVnaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Regions/RegionsList.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Regions/RegionsList.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaW9uc1xSZWdpb25zTGlzdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Schools/CreateSchool.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Schools/CreateSchool.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2Nob29sc1xDcmVhdGVTY2hvb2wucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Schools/EditSchool.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Schools/EditSchool.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2Nob29sc1xFZGl0U2Nob29sLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Schools/SchoolsList.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Schools/SchoolsList.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2Nob29sc1xTY2hvb2xzTGlzdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/CreateTask.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/CreateTask.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFza3NcQ3JlYXRlVGFzay5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/CreateTaskReply.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/CreateTaskReply.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFza3NcQ3JlYXRlVGFza1JlcGx5LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/EditTask.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/EditTask.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFza3NcRWRpdFRhc2sucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/TaskRepliesList.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/TaskRepliesList.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFza3NcVGFza1JlcGxpZXNMaXN0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/TasksList.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Tasks/TasksList.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGFza3NcVGFza3NMaXN0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Users/CreateUser.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Users/CreateUser.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcQ3JlYXRlVXNlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Users/EditUser.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Users/EditUser.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcRWRpdFVzZXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Users/UsersList.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Pages/Users/UsersList.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcnNcVXNlcnNMaXN0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/Alert.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/Alert.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEFsZXJ0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/CascadingLocationSelector.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/CascadingLocationSelector.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENhc2NhZGluZ0xvY2F0aW9uU2VsZWN0b3IucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/DynamicDropdown.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/DynamicDropdown.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXER5bmFtaWNEcm9wZG93bi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/FileUploader.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/FileUploader.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEZpbGVVcGxvYWRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/Loading.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/Loading.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXExvYWRpbmcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/Modal.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/Modal.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1vZGFsLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/Pagination.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/Pagination.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFBhZ2luYXRpb24ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/PersianDatePicker.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/PersianDatePicker.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFBlcnNpYW5EYXRlUGlja2VyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/RelatedEventsSelector.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/Shared/RelatedEventsSelector.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFJlbGF0ZWRFdmVudHNTZWxlY3Rvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/amira/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/_Imports.razor]
+[C:/Users/Amir Allahverdi/Documents/GitHub/EventsManagementSystem/EventsManagement.Blazor/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 

@@ -11,3 +11,16 @@ C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\o
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\obj\Debug\net9.0\refint\EventsManagement.Shared.dll
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\obj\Debug\net9.0\EventsManagement.Shared.pdb
 C:\Users\amira\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\obj\Debug\net9.0\ref\EventsManagement.Shared.dll
+C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\bin\Debug\net9.0\EventsManagement.Shared.deps.json
+C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\bin\Debug\net9.0\EventsManagement.Shared.dll
+C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\bin\Debug\net9.0\EventsManagement.Shared.pdb
+C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\obj\Debug\net9.0\EventsManagement.Shared.csproj.AssemblyReference.cache
+C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\obj\Debug\net9.0\EventsManagement.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\obj\Debug\net9.0\EventsManagement.Shared.AssemblyInfoInputs.cache
+C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\obj\Debug\net9.0\EventsManagement.Shared.AssemblyInfo.cs
+C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\obj\Debug\net9.0\EventsManagement.Shared.csproj.CoreCompileInputs.cache
+C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\obj\Debug\net9.0\EventsManagement.Shared.sourcelink.json
+C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\obj\Debug\net9.0\EventsManagement.Shared.dll
+C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\obj\Debug\net9.0\refint\EventsManagement.Shared.dll
+C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\obj\Debug\net9.0\EventsManagement.Shared.pdb
+C:\Users\Amir Allahverdi\Documents\GitHub\EventsManagementSystem\EventsManagement.Shared\obj\Debug\net9.0\ref\EventsManagement.Shared.dll
