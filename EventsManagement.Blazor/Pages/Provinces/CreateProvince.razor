@@ -1,0 +1,188 @@
+@page "/provinces/create"
+@inject HttpClient Http
+@inject IAuthService AuthService
+@inject NavigationManager Navigation
+
+<PageTitle>ثبت استان</PageTitle>
+
+<div class="page-container">
+    <div class="page-header">
+        <h2>ثبت استان جدید</h2>
+    </div>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <Alert Type="danger" Message="@errorMessage" OnClose="() => errorMessage = string.Empty" />
+    }
+
+    @if (isLoading)
+    {
+        <Loading />
+    }
+    else
+    {
+        <div class="form-card">
+            <EditForm Model="@model" OnValidSubmit="HandleSubmit">
+                <DataAnnotationsValidator />
+
+                <div class="form-group">
+                    <label>نام استان</label>
+                    <InputText @bind-Value="model.Name" class="form-control" placeholder="مثال: تهران" />
+                    <ValidationMessage For="@(() => model.Name)" />
+                </div>
+
+                <div class="form-group">
+                    <label>کد استان</label>
+                    <InputNumber @bind-Value="model.Code" class="form-control" />
+                    <ValidationMessage For="@(() => model.Code)" />
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">ثبت استان</button>
+                    <button type="button" class="btn btn-secondary" @onclick='() => Navigation.NavigateTo("/provinces")'>انصراف</button>
+                </div>
+            </EditForm>
+        </div>
+    }
+</div>
+
+@code {
+    private CreateProvinceModel model = new();
+    private bool isLoading = false;
+    private string errorMessage = string.Empty;
+
+    private async Task HandleSubmit()
+    {
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            var token = await AuthService.GetTokenAsync();
+            if (string.IsNullOrEmpty(token))
+            {
+                Navigation.NavigateTo("/login");
+                return;
+            }
+
+            Http.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var response = await Http.PostAsJsonAsync("api/Provinces", model);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Navigation.NavigateTo("/provinces");
+            }
+            else
+            {
+                errorMessage = "خطا در ثبت استان";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"خطا: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private class CreateProvinceModel
+    {
+        [Required(ErrorMessage = "نام استان الزامی است")]
+        public string Name { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "کد استان الزامی است")]
+        public int Code { get; set; }
+    }
+}
+
+<style>
+    .page-container {
+        padding: 20px;
+        direction: rtl;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .page-header {
+        margin-bottom: 30px;
+    }
+
+    .page-header h2 {
+        color: #333;
+        font-weight: 700;
+    }
+
+    .form-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 600;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+
+    .validation-message {
+        color: #dc3545;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        flex: 1;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+</style>
