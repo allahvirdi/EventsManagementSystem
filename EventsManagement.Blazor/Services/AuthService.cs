@@ -5,7 +5,7 @@ namespace EventsManagement.Blazor.Services
 {
     public interface IAuthService
     {
-        Task<LoginResult> LoginAsync(string email, string password);
+        Task<LoginResult> LoginAsync(string username, string password);
         Task LogoutAsync();
         Task<string?> GetTokenAsync();
         Task<bool> IsAuthenticatedAsync();
@@ -26,13 +26,13 @@ namespace EventsManagement.Blazor.Services
             _localStorage = localStorage;
         }
 
-        public async Task<LoginResult> LoginAsync(string email, string password)
+        public async Task<LoginResult> LoginAsync(string username, string password)
         {
             try
             {
                 var response = await _httpClient.PostAsJsonAsync("api/Auth/Login", new
                 {
-                    email,
+                    username,
                     password
                 });
 
