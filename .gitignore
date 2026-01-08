@@ -1,73 +1,91 @@
 ﻿## =====================
-## Bdr.SSO – .gitignore کامل و افتا-پسند
-## آخرین بروزرسانی: آذر ۱۴۰۴
+## EventsManagementSystem - .gitignore
 ## =====================
 
-# .NET Build + Binaries
-bin/
-obj/
-out/
-artifacts/
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
 
-# .NET User-specific files
+# Visual Studio / Rider
+.vs/
+.vscode/
+.idea/
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
-*.usersecrets.json
 
 # Rider / ReSharper
-.idea/
-*.iws
-*.iml
-*.ipr
+*.DotSettings.user
 
-# Visual Studio / VS Code
-.vscode/
-.vs/
-*.code-workspace
+# .NET Core / ASP.NET
+project.lock.json
+project.fragment.lock.json
+artifacts/
 
-# Test results
-TestResults/
+# Build files
+*_i.c
+*_p.c
+*.ilk
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
 *.trx
 
-# NuGet packages
-packages/
+# NuGet Packages
 *.nupkg
 *.snupkg
+**/packages/*
+!**/packages/build/
+*.nuget.props
+*.nuget.targets
 
-# Local secrets & certificates 
-appsettings.Development.json
-appsettings.Local.json
-secrets/
-*.pfx
-*.p12
-*.key
-*.cer
-*.crt
-!*.example.pfx  
+# Web workbench (sass)
+.sass-cache/
 
-# LocalDB / SQL Server local files
-*.mdf
-*.ldf
-*.bak
+# Node modules
+[Nn]ode_modules/
 
-# Migration files that contain sensitive data 
-**/Migrations/*_SeedData.cs
-**/Migrations/*Seed*.cs
+# Blazor / WebAssembly specific
+**/wwwroot/dist/
+**/wwwroot/_framework/
+**/obj/Debug/net9.0/staticwebassets/
+**/obj/Debug/net9.0/staticwebassets.build.json
+**/obj/Debug/net9.0/staticwebassets.development.json
+**/obj/Debug/net9.0/staticwebassets.pack.json
+**/obj/Debug/net9.0/*.cache
+**/obj/Debug/net9.0/*.json
+**/obj/Debug/net9.0/compressed/
+**/obj/Debug/net9.0/webcil/
+**/obj/Debug/net9.0/tmp-webcil/
+**/obj/Debug/net9.0/scopedcss/
 
-# Entity Framework Migrations 
-#**/Migrations/
-
-# Logs
-logs/
-*.log
-seq/
-
-# Docker / Containers
-Dockerfile*
-docker-compose*.yml
-.dockerignore
+# Assembly info files (auto-generated)
+**/obj/**/AssemblyInfo.cs
+**/obj/**/AssemblyInfoInputs.cache
+**/obj/**/AssemblyReference.cache
 
 # OS generated files
 .DS_Store
@@ -76,25 +94,20 @@ ehthumbs_vista.db
 Desktop.ini
 $RECYCLE.BIN/
 
-# Temp files
-*.tmp
-*.temp
-*.cache
-*.tmpproj
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
-# Blazor / WebAssembly specific
-wwwroot/js/
-wwwroot/css/
-node_modules/
-npm-debug.log
-yarn-error.log
-yarn-debug.log
+# Rider
+.idea/
+*.sln.iml
 
-# Rider/IntelliJ specific
-.idea/**/bin/
-.idea/**/obj/
-.idea/**/artifacts/
+# Local database files
+*.mdf
+*.ldf
 
-# Final – Safety
-[Bb]in/
-[Oo]bj/
+# Backup files
+*.bak
